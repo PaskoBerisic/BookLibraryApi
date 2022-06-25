@@ -1,4 +1,5 @@
-﻿using Infrastructure.Extensions;
+﻿using ApplicationCore.Entities;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -18,6 +19,9 @@ namespace Infrastructure.Data
             this.configuration = configuration;
         }
 
+        public DbSet<Book> Book { get; set; }
+        public DbSet<Author> Author { get; set; }
+        public DbSet<Order> Order { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

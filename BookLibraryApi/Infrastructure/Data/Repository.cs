@@ -15,6 +15,7 @@ namespace Infrastructure.Data
         {
             this.context = context;
         }
+
         public async Task SaveChangesAsync()
         {
             await context.SaveChangesAsync();
@@ -23,6 +24,16 @@ namespace Infrastructure.Data
         {
             return await context.Set<T>().ToListAsync();
         }
+        public async Task<T> GetByIdAsync<Tid>(Tid id) where Tid : notnull
+        {
+            return await context.Set<T>().FindAsync(new object[] { id }); 
+        }
+
+        public async Task<T> GetByNameAsync<Tname>(Tname name)
+        {
+            return await context.Set<T>().FindAsync(new object[] { name });
+        }
+
         public async Task<T> AddAsync(T entity)
         {
             await context.Set<T>().AddAsync(entity);
@@ -34,6 +45,11 @@ namespace Infrastructure.Data
         {
             context.Update(entity);
             await SaveChangesAsync();
+        }
+        public async Task DeleteByIdAsync<Tid>(Tid id)
+        {
+            var toDelete = await context.Set<T>().FindAsync(new object[] { id });
+            await DeleteAsync(toDelete);
         }
         public async Task DeleteAsync(T entity)
         {
