@@ -16,6 +16,7 @@ namespace ApplicationCore.Entities
         public ICollection<Genre>? Genres { get; set; }
         public int LanguageId { get; set; }
         public Language? Language { get; set; }
+        public ICollection<Order>? Orders { get; set; }
         public decimal RentalPrice { get; set; }
         public decimal ListPrice { get; set; }
         public int UnitNumber { get; set; }

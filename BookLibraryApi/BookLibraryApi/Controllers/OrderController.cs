@@ -1,61 +1,78 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
-using BookLibraryWebAPI.Models;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.Order;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLibraryApi.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowMyOrigin")]
     public class OrderController : Controller
     {
-        private readonly IBookLibraryService bookLibraryService;
+        private readonly IOrderService orderService;
         private readonly IMapper mapper;
-        public OrderController(IBookLibraryService bookLibraryService, IMapper mapper)
+        public OrderController(IOrderService orderService, IMapper mapper)
         {
-            this.bookLibraryService = bookLibraryService;
+            this.orderService = orderService;
             this.mapper = mapper;
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> Get()
         {
-            var orders = await bookLibraryService.GetAllOrders();
+            var orders = await orderService.GetAllOrdersWith();
             return Ok(mapper.Map<List<OrderModel>>(orders));
         }
-
+        [HttpGet("allWith")]
+        public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWith()
+        {
+            var orders = await orderService.GetAllOrdersWith();
+            return Ok(mapper.Map<List<OrderModel>>(orders));
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetById(int id)
         {
-            var order = await bookLibraryService.GetOrderById(id);
-            if (order is null)
+            var orders = await orderService.GetAllOrdersWith();
+            foreach (var order in orders)
             {
-                return NotFound($"Order with id {id} not found.");
+                if (order.Id == id)
+                    return Ok(mapper.Map<OrderModel>(order));
             }
-            var orderModel = mapper.Map<OrderModel>(order);
-            return Ok(orderModel);
+            return NotFound($"Order with id {id} not found.");
+            //var order = await orderService.GetOrderById(id);
+            //if (order is null)
+            //{
+            //    return NotFound($"Order with id {id} not found.");
+            //}
+            //var orderModel = mapper.Map<OrderModel>(order);
+            //return Ok(orderModel);
         }
 
         [HttpPost]
         public async Task<ActionResult<OrderModel>> Add([FromBody] OrderModel orderModel)
         {
             var order = mapper.Map<Order>(orderModel);
-            var orderAdded = await bookLibraryService.AddOrder(order);
+            var orderAdded = await orderService.AddOrder(order);
 
             return CreatedAtAction(nameof(GetById), new { orderAdded.Id }, orderAdded);
         }
 
         [HttpPut]
-        public async Task<ActionResult<OrderModel>> Update([FromBody] Order order)
+        public async Task<ActionResult<OrderModel>> Update([FromBody] OrderModelRequest orderModelRequest)
         {
-            await bookLibraryService.UpdateOrder(order);
-            return CreatedAtAction(nameof(GetById), new { order.Id }, order);
+            var item = mapper.Map<Order>(orderModelRequest);
+            await orderService.UpdateOrder(item);
+            return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<OrderModel>> Delete(int id)
         {
-            await bookLibraryService.DeleteOrderById(id);
+            await orderService.DeleteOrderById(id);
             return Ok($"Order with id {id} deleted");
         }
     

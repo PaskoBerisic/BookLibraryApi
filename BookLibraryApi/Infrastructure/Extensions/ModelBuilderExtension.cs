@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Extensions
 {
-    public static class ModelBuilderExtension 
+    public static class ModelBuilderExtension
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -17,8 +17,8 @@ namespace Infrastructure.Extensions
                     DateOfBirth = new DateTime(1950, 12, 1),
                     CountryId = 1,
                     Bibliography = "Bibliography 1",
-                    Created = DateTime.UtcNow,
                     CreatedBy = 1,
+                    Created = DateTime.UtcNow,
                     UpdatedBy = 1,
                     Updated = DateTime.UtcNow
                 },
@@ -30,8 +30,8 @@ namespace Infrastructure.Extensions
                     DateOfBirth = new DateTime(1950, 12, 1),
                     CountryId = 1,
                     Bibliography = "Bibliography 2",
-                    Created = DateTime.UtcNow,
                     CreatedBy = 1,
+                    Created = DateTime.UtcNow,
                     UpdatedBy = 1,
                     Updated = DateTime.UtcNow
                 },
@@ -43,12 +43,57 @@ namespace Infrastructure.Extensions
                     DateOfBirth = new DateTime(1950, 12, 1),
                     CountryId = 1,
                     Bibliography = "Bibliography 3",
-                    Created = DateTime.UtcNow,
                     CreatedBy = 1,
+                    Created = DateTime.UtcNow,
+                    UpdatedBy = 1,
+                    Updated = DateTime.UtcNow
+                },
+                new Author
+                {
+                    Id = 10,
+                    FirstName = "Elon",
+                    LastName = "Musk",
+                    DateOfBirth = new DateTime(1975, 10, 15),
+                    CountryId = 2,
+                    Bibliography = "Bibliography 8",
+                    CreatedBy = 1,
+                    Created = DateTime.UtcNow,
                     UpdatedBy = 1,
                     Updated = DateTime.UtcNow
                 }
                 );
+
+            //Author With Many Books
+            modelBuilder.Entity<Author>()
+                .HasMany(x => x.Books)
+                .WithMany(x => x.Authors)
+                .UsingEntity(x => x.HasData(
+                    new
+                    {
+                        BooksId = 1,
+                        AuthorsId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        AuthorsId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        AuthorsId = 2
+                    },
+                    new
+                    {
+                        BooksId = 3,
+                        AuthorsId = 3
+                    },
+                    new
+                    {
+                        BooksId = 4,
+                        AuthorsId = 10
+                    }
+                    ));
             //Author
 
             modelBuilder.Entity<Book>().HasData(
@@ -95,6 +140,22 @@ namespace Infrastructure.Extensions
                     RentalPrice = 2.20M,
                     ListPrice = 1.70M,
                     UnitNumber = 3,
+                    CreatedBy = 1,
+                    Created = DateTime.UtcNow,
+                    UpdatedBy = 1,
+                    Updated = DateTime.UtcNow
+                },
+                new Book
+                {
+                    Id = 4,
+                    Title = "Tesla",
+                    PublisherId = 3,
+                    YearOfPublish = 2018,
+                    Description = "Description about the book tesla",
+                    LanguageId = 2,
+                    RentalPrice = 1.90M,
+                    ListPrice = 1.30M,
+                    UnitNumber = 5,
                     CreatedBy = 1,
                     Created = DateTime.UtcNow,
                     UpdatedBy = 1,
@@ -222,8 +283,52 @@ namespace Infrastructure.Extensions
                     Created = DateTime.UtcNow,
                     UpdatedBy = 1,
                     Updated = DateTime.UtcNow
+                },
+                new Genre
+                {
+                    Id = 4,
+                    Name = "Documentary",
+                    IsActive = true,
+                    Description = "Description about the genre 3",
+                    CreatedBy = 1,
+                    Created = DateTime.UtcNow,
+                    UpdatedBy = 1,
+                    Updated = DateTime.UtcNow
                 }
                 );
+
+            //Genre With Many Books
+            modelBuilder.Entity<Genre>()
+                .HasMany(x => x.Books)
+                .WithMany(x => x.Genres)
+                .UsingEntity(x => x.HasData(
+                    new
+                    {
+                        BooksId = 1,
+                        GenresId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        GenresId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        GenresId = 2
+                    },
+                    new
+                    {
+                        BooksId = 3,
+                        GenresId = 3
+                    },
+                    new
+                    {
+                        BooksId = 4,
+                        GenresId = 4
+                    }
+                    ));
+
             //Genre
 
             modelBuilder.Entity<Language>().HasData(
@@ -282,13 +387,44 @@ namespace Infrastructure.Extensions
                 new Order
                 {
                     Id = 3,
-                    UserId = 1,
+                    UserId = 3,
                     Date = new DateTime(2020, 5, 16),
                     TotalRentalPrice = 1.60M,
                     TotalRentalPriceWithVAT = 2M,
                     Currency = "E"
                 }
                 );
+            //Order With Many Books
+            modelBuilder.Entity<Order>()
+                .HasMany(x => x.Books)
+                .WithMany(x => x.Orders)
+                .UsingEntity(x => x.HasData(
+                    new
+                    {
+                        BooksId = 1,
+                        OrdersId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        OrdersId = 1
+                    },
+                    new
+                    {
+                        BooksId = 4,
+                        OrdersId = 2
+                    },
+                    new
+                    {
+                        BooksId = 3,
+                        OrdersId = 3
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        OrdersId = 3
+                    }
+                    ));
             //Order
 
             modelBuilder.Entity<Publisher>().HasData(
@@ -398,62 +534,6 @@ namespace Infrastructure.Extensions
                 }
                 );
             //UserBasket
-
-
-
-            //Author With Many Books
-            modelBuilder.Entity<Author>()
-                .HasMany(x => x.Books)
-                .WithMany(x => x.Authors)
-                .UsingEntity(x => x.HasData(
-                    new
-                    {
-                        BooksId = 1,
-                        AuthorsId = 1
-                    },
-                    new
-                    {
-                        BooksId = 2,
-                        AuthorsId = 1
-                    },
-                    new
-                    {
-                        BooksId = 2,
-                        AuthorsId = 2
-                    },
-                    new
-                    {
-                        BooksId = 3,
-                        AuthorsId = 3
-                    }
-                    ));
-
-            //Genre With Many Books
-            modelBuilder.Entity<Genre>()
-                .HasMany(x => x.Books)
-                .WithMany(x => x.Genres)
-                .UsingEntity(x => x.HasData(
-                    new
-                    {
-                        BooksId = 1,
-                        GenresId = 1
-                    },
-                    new
-                    {
-                        BooksId = 2,
-                        GenresId = 1
-                    },
-                    new
-                    {
-                        BooksId = 2,
-                        GenresId = 2
-                    },
-                    new
-                    {
-                        BooksId = 3,
-                        GenresId = 3
-                    }
-                    ));
         }
 
     }

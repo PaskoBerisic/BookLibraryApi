@@ -1,10 +1,11 @@
 ﻿using ApplicationCore.Entities;
 
-namespace BookLibraryWebAPI.Models
+namespace BookLibraryApi.Models
 {
     public class UserBasketModel
     {
-        public ICollection<BookRental>? RentedBooks { get; set; }
+        public int Id { get; set; }
+        public ICollection<BookRentalModel>? RentedBooks { get; set; }
         public decimal TotalRentalPrice { get; set; }
         public decimal TotalRentalPriceWithVAT { get; set; }
         public string? Currency { get; set; }

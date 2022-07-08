@@ -2,12 +2,7 @@
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -19,9 +14,18 @@ namespace Infrastructure.Data
             this.configuration = configuration;
         }
 
-        public DbSet<Book> Book { get; set; }
-        public DbSet<Author> Author { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<BookRental> BookRentals { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Language> Languages { get; set; }  
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserBasket> UserBaskets { get; set; }
+        public DbSet<SystemSettings> SystemSettings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -32,6 +36,15 @@ namespace Infrastructure.Data
         {
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("BookLibraryApi"));
             optionsBuilder.EnableSensitiveDataLogging();
+            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            
         }
     }
 }
+
+
+//    (options =>
+//{
+//    options.UseSqlServer("BookLibraryApi");
+//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+//}); ;

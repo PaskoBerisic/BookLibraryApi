@@ -1,62 +1,65 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
-using ApplicationCore.Services;
+using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
-using BookLibraryWebAPI.Models;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.Author;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-
 namespace BookLibraryApi.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowMyOrigin")]
+    [ApiController]
     public class AuthorController : Controller
     {
-        private readonly IBookLibraryService bookLibraryService;
+        private readonly IAuthorService authorService;
         private readonly IMapper mapper;
-        public AuthorController(IBookLibraryService bookLibraryService, IMapper mapper)
+        public AuthorController(IAuthorService authorService, IMapper mapper)
         {
-            this.bookLibraryService = bookLibraryService;
+            this.authorService = authorService;
             this.mapper = mapper;
         }
-
+        
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> Get()
         {
-            var authors = await bookLibraryService.GetAllAuthors();
+            var authors = await authorService.GetAllAuthorsWith();
             return Ok(mapper.Map<List<AuthorModel>>(authors));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> GetById(int id)
         {
-            var author = await bookLibraryService.GetAuthorById(id);
-            if (author is null)
+            var authors = await authorService.GetAllAuthorsWith();
+            foreach (var author in authors)
             {
-                return NotFound($"Author with id {id} not found.");
+                if (author.Id == id)
+                    return Ok(mapper.Map<AuthorModel>(author));
             }
-            var authorModel = mapper.Map<AuthorModel>(author);
-            return Ok(authorModel);
+            return NotFound($"Author with id {id} not found.");
         }
-
         [HttpPost]
         public async Task<ActionResult<AuthorModel>> Add([FromBody] AuthorModel authorModel)
         {
             var author = mapper.Map<Author>(authorModel);
-            var authorAdded = await bookLibraryService.AddAuthor(author);
+            var authorAdded = await authorService.AddAuthor(author);
 
             return CreatedAtAction(nameof(GetById), new { authorAdded.Id }, authorAdded);
         }
-
+        
         [HttpPut]
-        public async Task<ActionResult<AuthorModel>> Update([FromBody] Author author)
+        public async Task<ActionResult<AuthorModel>> Update([FromBody] AuthorModel authorModel)
         {
-            await bookLibraryService.UpdateAuthor(author);
-            return CreatedAtAction(nameof(GetById), new { author.Id }, author);
+            var item = mapper.Map<Author>(authorModel);
+            await authorService.UpdateAuthor(item);
+            return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<AuthorModel>> Delete(int id)
         {
-            await bookLibraryService.DeleteAuthorById(id);
+            await authorService.DeleteAuthorById(id);
             return Ok($"Author with id {id} deleted");
         }
     

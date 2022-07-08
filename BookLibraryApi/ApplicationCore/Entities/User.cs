@@ -15,15 +15,11 @@ namespace ApplicationCore.Entities
         public DateTime DateOfBirth { get; set; }
         public string? Adress { get; set; }
         public Role Role { get; set; }
+        public int OrderId { get; set; }
         public ICollection<Order>? Orders { get; set; }
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
-
-
     }
-
-   
-
 }

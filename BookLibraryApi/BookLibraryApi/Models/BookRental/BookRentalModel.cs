@@ -1,12 +1,14 @@
 ﻿using ApplicationCore.Entities;
+using BookLibraryApi.Models.Book;
+using BookLibraryApi.Models.User;
 
-namespace BookLibraryWebAPI.Models
+namespace BookLibraryApi.Models
 {
     public class BookRentalModel
     {
-
-        public Book? Book { get; set; }
-        public User? User { get; set; }
+        public int Id { get; set; }
+        public BookModel Books { get; set; }
+        public UserModel User { get; set; }
         public DateTime RentedFromDate { get; set; }
         public DateTime RentedToDate { get; set; }
         public DateTime ReturnedDate { get; set; }

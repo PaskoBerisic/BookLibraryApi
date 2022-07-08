@@ -1,61 +1,72 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
-using BookLibraryWebAPI.Models;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.Book;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookLibraryApi.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowMyOrigin")]
     public class BookController : Controller
     {
-        private readonly IBookLibraryService bookLibraryService;
+        private readonly IBookService bookService;
         private readonly IMapper mapper;
-        public BookController(IBookLibraryService bookLibraryService, IMapper mapper)
+        public BookController(IBookService bookService, IMapper mapper)
         {
-            this.bookLibraryService = bookLibraryService;
+            this.bookService = bookService;
             this.mapper = mapper;
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<BookModel>>> Get()
         {
-            var books = await bookLibraryService.GetAllBooks();
+            var books = await bookService.GetAllBooksWith();
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
+        {
+            var books = await bookService.GetAllBooksWith();
+            return Ok(mapper.Map<List<BookModel>>(books));
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetById(int id)
         {
-            var book = await bookLibraryService.GetBookById(id);
-            if (book is null)
+            var books = await bookService.GetAllBooksWith();
+            foreach (var book in books)
             {
-                return NotFound($"Book with id {id} not found.");
+                if (book.Id == id)
+                    return Ok(mapper.Map<BookModel>(book));
             }
-            var bookModel = mapper.Map<BookModel>(book);
-            return Ok(bookModel);
+            return NotFound($"Book with id {id} not found.");
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookModel>> Add([FromBody] BookModel bookModel)
+        public async Task<ActionResult<BookModelRequest>> Add([FromBody] BookModel bookModel )
         {
             var book = mapper.Map<Book>(bookModel);
-            var bookAdded = await bookLibraryService.AddBook(book);
-
+            var bookAdded = await bookService.AddBook(book);
             return CreatedAtAction(nameof(GetById), new { bookAdded.Id }, bookAdded);
         }
 
         [HttpPut]
-        public async Task<ActionResult<BookModel>> Update([FromBody] Book book)
+        public async Task<ActionResult<BookModel>> Update([FromBody] BookModelRequest bookModelRequest)
         {
-            await bookLibraryService.UpdateBook(book);
-            return CreatedAtAction(nameof(GetById), new { book.Id }, book);
+            var item = mapper.Map<Book>(bookModelRequest);
+            await bookService.UpdateBook(item);
+            return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<BookModel>> Delete(int id)
         {
-            await bookLibraryService.DeleteBookById(id);
+            await bookService.DeleteBookById(id);
             return Ok($"Book with id {id} deleted");
         }
     }

@@ -1,14 +1,13 @@
-﻿using ApplicationCore.Entities;
-
-namespace BookLibraryWebAPI.Models
+﻿namespace BookLibraryApi.Models.Order
 {
-    public class OrderModel
+    public class OrderModelRequest
     {
-        public ICollection<BookRental> RentedBooks { get; set; }
+        public int Id { get; set; }
+        public UserModel User { get; set; }
+        public ICollection<BookModel> Books { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalRentalPrice { get; set; }
         public decimal TotalRentalPriceWithVAT { get; set; }
         public string? Currency { get; set; }
-
     }
 }

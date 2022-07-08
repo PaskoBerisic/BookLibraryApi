@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace ApplicationCore.Interfaces
 {
@@ -10,6 +6,9 @@ namespace ApplicationCore.Interfaces
     {
         Task SaveChangesAsync();
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllWithIncludesAsync(List<Expression<Func<T, object>>> includes);
+        Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecification<T> specification);
+
         Task<T> GetByIdAsync<Tid>(Tid id) where Tid : notnull;
         Task<T> GetByNameAsync<Tname>(Tname tname);
         Task<T> AddAsync(T entity);

@@ -1,10 +1,12 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Enums;
+using BookLibraryApi.Models.Order;
 
-namespace BookLibraryWebAPI.Models
+namespace BookLibraryApi.Models
 {
     public class UserModel
     {
+        public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Username { get; set; }
@@ -13,7 +15,6 @@ namespace BookLibraryWebAPI.Models
         public DateTime DateOfBirth { get; set; }
         public string? Adress { get; set; }
         public Role Role { get; set; }
-        public ICollection<Order>? Orders { get; set; }
-
+        public ICollection<OrderModel> Orders { get; set; }
     }
 }

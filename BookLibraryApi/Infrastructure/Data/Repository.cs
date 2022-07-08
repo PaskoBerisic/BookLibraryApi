@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data
@@ -24,6 +24,17 @@ namespace Infrastructure.Data
         {
             return await context.Set<T>().ToListAsync();
         }
+        public async Task<IEnumerable<T>> GetAllWithIncludesAsync(List<Expression<Func<T, object>>> includes)
+        {
+            var query = includes.Aggregate(context.Set<T>().AsQueryable(), (current, include) => current.Include(include));
+            return await query.ToListAsync();
+        }
+        public async Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecification<T> specification)
+        {
+            var query = SpecificationEvaulator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
+            return await query.ToListAsync();
+        }
+
         public async Task<T> GetByIdAsync<Tid>(Tid id) where Tid : notnull
         {
             return await context.Set<T>().FindAsync(new object[] { id }); 
@@ -56,5 +67,7 @@ namespace Infrastructure.Data
             context.Remove(entity);
             await SaveChangesAsync();
         }
+
+        
     }
 }
