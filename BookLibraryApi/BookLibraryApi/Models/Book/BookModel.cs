@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using BookLibraryApi.Models;
+using BookLibraryApi.Models.Author;
 using BookLibraryApi.Models.Genre;
 using BookLibraryApi.Models.Language;
 using BookLibraryApi.Models.Publisher;
@@ -8,7 +9,6 @@ namespace BookLibraryApi.Models
 {
     public class BookModel
     {
-        public int Id { get; set; }
         public string? Title { get; set; }
         public ICollection<AuthorModel>? Authors { get; set; }
         public PublisherModel? Publisher { get; set; }

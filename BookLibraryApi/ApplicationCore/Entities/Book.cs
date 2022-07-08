@@ -8,7 +8,7 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public string? Title { get; set; }
-        public ICollection<Author>? Authors { get; set; }
+        public IEnumerable<Author>? Authors { get; set; }
         public int PublisherId { get; set; }
         public Publisher? Publisher { get; set; }
         public int YearOfPublish { get; set; }

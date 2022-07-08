@@ -1,6 +1,6 @@
 ﻿namespace BookLibraryApi.Models.Genre
 {
-    public class GenreModelRequest
+    public class GenreModelShort
     {
         public int Id { get; set; }
     }
