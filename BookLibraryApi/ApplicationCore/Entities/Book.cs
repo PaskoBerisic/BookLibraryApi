@@ -8,15 +8,8 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public string? Title { get; set; }
-        public ICollection<Author>? Authors { get; set; }
-        public int PublisherId { get; set; }
-        public Publisher? Publisher { get; set; }
         public int YearOfPublish { get; set; }
         public string? Description { get; set; }
-        public ICollection<Genre>? Genres { get; set; }
-        public int LanguageId { get; set; }
-        public Language? Language { get; set; }
-        public ICollection<Order>? Orders { get; set; }
         public decimal RentalPrice { get; set; }
         public decimal ListPrice { get; set; }
         public int UnitNumber { get; set; }
@@ -24,6 +17,14 @@ namespace ApplicationCore.Entities
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
-
+        // One to Many
+        public int LanguageId { get; set; }
+        public Language? Language { get; set; }
+        public int PublisherId { get; set; }
+        public Publisher? Publisher { get; set; }
+        // Many to Many
+        public ICollection<Author>? Authors { get; set; }
+        public ICollection<Genre>? Genres { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 }

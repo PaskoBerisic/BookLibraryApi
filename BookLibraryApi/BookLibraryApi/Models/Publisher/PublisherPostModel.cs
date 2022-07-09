@@ -1,11 +1,10 @@
 ﻿namespace BookLibraryApi.Models.Publisher
 {
-    public class PublisherModelRequest
+    public class PublisherPostModel
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public ICollection<BookModel>? Books { get; set; }
-
-
+        // Many to Many
+        //public ICollection<BookModelShort>? Books { get; set; }
     }
 }

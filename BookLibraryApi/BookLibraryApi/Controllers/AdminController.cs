@@ -5,13 +5,10 @@ using AutoMapper;
 using BookLibraryApi.Models;
 using BookLibraryApi.Models.Genre;
 using BookLibraryApi.Models.Language;
+using BookLibraryApi.Models.Publisher;
+using BookLibraryApi.Models.User;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-
-
-//Rijesi modele;
-//Popravi order
-
 
 namespace BookLibraryApi.Controllers
 {
@@ -42,6 +39,8 @@ namespace BookLibraryApi.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
+
+        #region Country
         
         //Country
         [HttpGet("Country/All")]
@@ -77,10 +76,11 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetCountryById), new { countriesAdded.Id }, countriesAdded);
         }
         [HttpPut("Country")]
-        public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] Country country)
+        public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] CountryModel countryModel)
         {
-            await countryService.UpdateCountry(country);
-            return CreatedAtAction(nameof(GetCountryById), new { country.Id }, country);
+            var item = mapper.Map<Country>(countryModel);
+            await countryService.UpdateCountry(item);
+            return CreatedAtAction(nameof(GetCountryById), new { item.Id }, item);
         }
 
         [HttpDelete("Country/{id}")]
@@ -89,7 +89,10 @@ namespace BookLibraryApi.Controllers
             await countryService.DeleteCountryById(id);
             return Ok($"Country with id {id} deleted");
         }
+        #endregion
 
+        #region Genre
+        
         //Genre
         [HttpGet("Genre/All")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetAllGenres()
@@ -109,9 +112,9 @@ namespace BookLibraryApi.Controllers
             return NotFound($"Genre with id {id} not found.");
         }
         [HttpPost("Genre")]
-        public async Task<ActionResult<GenreModel>> AddGenre([FromBody] GenreModel genreModel)
+        public async Task<ActionResult<GenreModel>> AddGenre([FromBody] GenrePostModel genrePostModel)
         {
-            var genres = mapper.Map<Genre>(genreModel);
+            var genres = mapper.Map<Genre>(genrePostModel);
             var genresAdded = await genreService.AddGenre(genres);
 
             return CreatedAtAction(nameof(GetGenreById), new { genresAdded.Id }, genresAdded);
@@ -130,7 +133,10 @@ namespace BookLibraryApi.Controllers
             await genreService.DeleteGenreById(id);
             return Ok($"Genre with id {id} deleted");
         }
+        #endregion
 
+        #region Language
+        
         //Language
         [HttpGet("Language/All")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetAllLanguages()
@@ -150,9 +156,9 @@ namespace BookLibraryApi.Controllers
             return NotFound($"Language with id {id} not found.");
         }
         [HttpPost("Language")]
-        public async Task<ActionResult<LanguageModel>> AddLanguage([FromBody] LanguageModel languageModel)
+        public async Task<ActionResult<LanguageModel>> AddLanguage([FromBody] LanguagePostModel languagePostModel)
         {
-            var languages = mapper.Map<Language>(languageModel);
+            var languages = mapper.Map<Language>(languagePostModel);
             var languagesAdded = await languageService.AddLanguage(languages);
 
             return CreatedAtAction(nameof(GetLanguageById), new { languagesAdded.Id }, languagesAdded);
@@ -170,7 +176,10 @@ namespace BookLibraryApi.Controllers
             await languageService.DeleteLanguageById(id);
             return Ok($"Language with id {id} deleted");
         }
+        #endregion
 
+        #region Publisher
+        
         //Publisher
         [HttpGet("Publisher/All")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetAllPublishers()
@@ -190,9 +199,9 @@ namespace BookLibraryApi.Controllers
             return NotFound($"Publisher with id {id} not found.");
         }
         [HttpPost("Publisher")]
-        public async Task<ActionResult<PublisherModel>> AddPublisher([FromBody] PublisherModel publisherModel)
+        public async Task<ActionResult<PublisherModel>> AddPublisher([FromBody] PublisherPostModel publisherPostModel)
         {
-            var publisher = mapper.Map<Publisher>(publisherModel);
+            var publisher = mapper.Map<Publisher>(publisherPostModel);
             var publishersAdded = await publisherService.AddPublisher(publisher);
             return CreatedAtAction(nameof(GetPublisherById), new { publishersAdded.Id }, publishersAdded);
 
@@ -210,7 +219,10 @@ namespace BookLibraryApi.Controllers
             await publisherService.DeletePublisherById(id);
             return Ok($"Publisher with id {id} deleted");
         }
+        #endregion
 
+        #region User
+        
         //User
         [HttpGet("User/All")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
@@ -230,12 +242,11 @@ namespace BookLibraryApi.Controllers
             return NotFound($"User with id {id} not found.");
         }
         [HttpPost("User")]
-        public async Task<ActionResult<UserModel>> AddUser([FromBody] UserModel userModel)
+        public async Task<ActionResult<UserModel>> AddUser([FromBody] UserPostModel userPostModel)
         {
-            var user = mapper.Map<User>(userModel);
+            var user = mapper.Map<User>(userPostModel);
             var userAdded = await userService.AddUser(user);
             return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
-
         }
         [HttpPut("User")]
         public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserModel userModel)
@@ -250,8 +261,9 @@ namespace BookLibraryApi.Controllers
             await userService.DeleteUserById(id);
             return Ok($"User with id {id} deleted");
         }
+        #endregion
 
-        ////SystemSettings
+        //SystemSettings
         //[HttpGet("/System Settings/All")]
         //public async Task<ActionResult<IEnumerable<Genre>>> GetSettings()
         //{

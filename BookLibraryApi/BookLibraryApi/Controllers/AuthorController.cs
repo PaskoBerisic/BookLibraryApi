@@ -40,9 +40,9 @@ namespace BookLibraryApi.Controllers
             return NotFound($"Author with id {id} not found.");
         }
         [HttpPost]
-        public async Task<ActionResult<AuthorModel>> Add([FromBody] AuthorModel authorModel)
+        public async Task<ActionResult<AuthorModel>> Add([FromBody] AuthorPostModel authorPostModel)
         {
-            var author = mapper.Map<Author>(authorModel);
+            var author = mapper.Map<Author>(authorPostModel);
             var authorAdded = await authorService.AddAuthor(author);
 
             return CreatedAtAction(nameof(GetById), new { authorAdded.Id }, authorAdded);
@@ -62,6 +62,5 @@ namespace BookLibraryApi.Controllers
             await authorService.DeleteAuthorById(id);
             return Ok($"Author with id {id} deleted");
         }
-    
     }
 }

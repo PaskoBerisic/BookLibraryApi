@@ -168,8 +168,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 1,
-                    BookId = 1,
-                    UserId = 1,
+                    //UserId = 1,
                     OrderId = 1,
                     RentedFromDate = new DateTime(2020, 1, 1),
                     RentedToDate = new DateTime(2020, 1, 5),
@@ -183,8 +182,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 2,
-                    BookId = 1,
-                    UserId = 2,
+                    //UserId = 2,
                     OrderId = 2,
                     RentedFromDate = new DateTime(2020, 1, 5),
                     RentedToDate = new DateTime(2020, 1, 15),
@@ -198,8 +196,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 3,
-                    BookId = 1,
-                    UserId = 1,
+                    //UserId = 1,
                     OrderId = 3,
                     RentedFromDate = new DateTime(2020, 1, 6),
                     RentedToDate = new DateTime(2020, 1, 10),
@@ -211,6 +208,7 @@ namespace Infrastructure.Extensions
                     Updated = DateTime.UtcNow
                 }
                 );
+            
             //BookRental
 
             modelBuilder.Entity<Country>().HasData(
@@ -392,6 +390,15 @@ namespace Infrastructure.Extensions
                     TotalRentalPrice = 1.60M,
                     TotalRentalPriceWithVAT = 2M,
                     Currency = "E"
+                },
+                new Order
+                {
+                    Id = 4,
+                    UserId = 2,
+                    Date = new DateTime(2021, 5, 16),
+                    TotalRentalPrice = 1.60M,
+                    TotalRentalPriceWithVAT = 2M,
+                    Currency = "E"
                 }
                 );
             //Order With Many Books
@@ -423,6 +430,16 @@ namespace Infrastructure.Extensions
                     {
                         BooksId = 2,
                         OrdersId = 3
+                    },
+                    new
+                    {
+                        BooksId = 1,
+                        OrdersId = 4
+                    },
+                    new
+                    {
+                        BooksId = 19,
+                        OrdersId = 4
                     }
                     ));
             //Order
@@ -494,9 +511,9 @@ namespace Infrastructure.Extensions
                 new User
                 {
                     Id = 3,
-                    FirstName = "Name 2",
-                    LastName = "Surname 2",
-                    Username = "User2",
+                    FirstName = "Name 3",
+                    LastName = "Surname 3",
+                    Username = "User3",
                     Password = "123456",
                     IsActive = true,
                     DateOfBirth = new DateTime(1999, 1, 1),

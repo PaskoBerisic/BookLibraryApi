@@ -1,8 +1,9 @@
 ﻿using ApplicationCore.Enums;
+using BookLibraryApi.Models.Order;
 
 namespace BookLibraryApi.Models.User
 {
-    public class UserModelRequest
+    public class UserPostModel
     {
         public int Id { get; set; }
         public string? FirstName { get; set; }
@@ -13,6 +14,7 @@ namespace BookLibraryApi.Models.User
         public DateTime DateOfBirth { get; set; }
         public string? Adress { get; set; }
         public Role Role { get; set; }
-        public ICollection<OrderModel>? Orders { get; set; }
+        // Many to Many
+        //public ICollection<OrderModelShort>? Orders { get; set; }
     }
 }

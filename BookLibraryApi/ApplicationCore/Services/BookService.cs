@@ -46,7 +46,7 @@ namespace ApplicationCore.Services
 
         public async Task<IEnumerable<Book>> GetAllBooksWith()
         {
-            return await bookRepository.GetAllWithIncludesAsync(new List<Expression<Func<Book, object>>>() { x => x.Authors, x => x.Genres, x => x.Publisher, x => x.Language });
+            return await bookRepository.GetAllWithIncludesAsync(new List<Expression<Func<Book, object>>>() { x => x.Authors, x => x.Genres, x => x.Publisher, x => x.Language, x => x.Orders });
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksWithAuthorsSpec(ISpecification<Book> specification)
@@ -64,8 +64,8 @@ namespace ApplicationCore.Services
         }
         public async Task<Book> AddBook(Book book)
         {
-            await GetAuthors(book);
-            await GetGenres(book);
+            //await GetAuthors(book);
+            //await GetGenres(book);
             return await bookRepository.AddAsync(book);
         }
         public async Task UpdateBook(Book book)

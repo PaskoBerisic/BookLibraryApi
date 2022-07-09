@@ -15,6 +15,7 @@ namespace BookLibraryApi.Models
         public DateTime DateOfBirth { get; set; }
         public string? Adress { get; set; }
         public Role Role { get; set; }
-        public ICollection<OrderModel> Orders { get; set; }
+        //Many to Many
+        public ICollection<OrderModel>? Orders { get; set; }
     }
 }
