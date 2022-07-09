@@ -5,8 +5,8 @@ namespace BookLibraryApi.Models.BookRental
 {
     public class BookRentalModelShort
     {
-        public BookModelShort Books { get; set; }
-        public UserModelShort User { get; set; }
+        public UserModel? User { get; set; }
+        public OrderModel? Order { get; set; }
         public string? Status { get; set; }
 
     }

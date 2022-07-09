@@ -1,6 +1,6 @@
 ﻿namespace BookLibraryApi.Models.Publisher
 {
-    public class PublisherModelShort
+    public class PublisherPostMode
     {
         public string Name { get; set; }
     }

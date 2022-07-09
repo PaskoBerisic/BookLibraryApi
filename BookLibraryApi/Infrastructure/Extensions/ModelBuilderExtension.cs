@@ -168,8 +168,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 1,
-                    BookId = 1,
-                    UserId = 1,
+                    //UserId = 1,
                     OrderId = 1,
                     RentedFromDate = new DateTime(2020, 1, 1),
                     RentedToDate = new DateTime(2020, 1, 5),
@@ -183,8 +182,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 2,
-                    BookId = 1,
-                    UserId = 2,
+                    //UserId = 2,
                     OrderId = 2,
                     RentedFromDate = new DateTime(2020, 1, 5),
                     RentedToDate = new DateTime(2020, 1, 15),
@@ -198,8 +196,7 @@ namespace Infrastructure.Extensions
                 new BookRental
                 {
                     Id = 3,
-                    BookId = 1,
-                    UserId = 1,
+                    //UserId = 1,
                     OrderId = 3,
                     RentedFromDate = new DateTime(2020, 1, 6),
                     RentedToDate = new DateTime(2020, 1, 10),
@@ -211,6 +208,7 @@ namespace Infrastructure.Extensions
                     Updated = DateTime.UtcNow
                 }
                 );
+            
             //BookRental
 
             modelBuilder.Entity<Country>().HasData(

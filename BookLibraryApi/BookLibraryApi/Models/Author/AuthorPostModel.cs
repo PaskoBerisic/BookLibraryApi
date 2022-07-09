@@ -1,4 +1,5 @@
-﻿using BookLibraryApi.Models.Country;
+﻿using BookLibraryApi.Models.Book;
+using BookLibraryApi.Models.Country;
 
 namespace BookLibraryApi.Models.Author
 {
@@ -7,8 +8,10 @@ namespace BookLibraryApi.Models.Author
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public CountryModel Country { get; set; }
         public string? Bibliography { get; set; }
-
+        // One to Many
+        public int CountryId { get; set; }
+        // Many to Many
+        //public ICollection<BookModelShort> Books { get; set; }
     }
 }

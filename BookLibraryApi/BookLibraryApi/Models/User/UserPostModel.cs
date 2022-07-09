@@ -1,10 +1,9 @@
 ﻿using ApplicationCore.Enums;
-using System;
-using System.Collections.Generic;
+using BookLibraryApi.Models.Order;
 
-namespace ApplicationCore.Entities
+namespace BookLibraryApi.Models.User
 {
-    public class User
+    public class UserPostModel
     {
         public int Id { get; set; }
         public string? FirstName { get; set; }
@@ -15,12 +14,7 @@ namespace ApplicationCore.Entities
         public DateTime DateOfBirth { get; set; }
         public string? Adress { get; set; }
         public Role Role { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime Created { get; set; }
-        public int UpdatedBy { get; set; }
-        public DateTime Updated { get; set; }
         // Many to Many
-        public ICollection<Order>? Orders { get; set; }
-
+        //public ICollection<OrderModelShort>? Orders { get; set; }
     }
 }

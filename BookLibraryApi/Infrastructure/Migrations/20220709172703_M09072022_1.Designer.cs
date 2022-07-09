@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BookLibraryContext))]
-    [Migration("20220705170951_Initial")]
-    partial class Initial
+    [Migration("20220709172703_M09072022_1")]
+    partial class M09072022_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,12 +78,12 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             Bibliography = "Bibliography 1",
                             CountryId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1814),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6263),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1950, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name",
                             LastName = "Surname",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1815),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6266),
                             UpdatedBy = 1
                         },
                         new
@@ -91,12 +91,12 @@ namespace Infrastructure.Migrations
                             Id = 2,
                             Bibliography = "Bibliography 2",
                             CountryId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1818),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6268),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1950, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name 2",
                             LastName = "Surname 2",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1818),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6268),
                             UpdatedBy = 1
                         },
                         new
@@ -104,12 +104,12 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             Bibliography = "Bibliography 3",
                             CountryId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1820),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6273),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1950, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name 3",
                             LastName = "Surname 3",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1820),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6273),
                             UpdatedBy = 1
                         },
                         new
@@ -117,12 +117,12 @@ namespace Infrastructure.Migrations
                             Id = 10,
                             Bibliography = "Bibliography 8",
                             CountryId = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1822),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6275),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1975, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Elon",
                             LastName = "Musk",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(1822),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6276),
                             UpdatedBy = 1
                         });
                 });
@@ -134,9 +134,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("BookRentalId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasMaxLength(25)
@@ -156,9 +153,6 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("ListPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
@@ -190,11 +184,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookRentalId");
-
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("PublisherId");
 
@@ -206,7 +196,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2298),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6692),
                             CreatedBy = 1,
                             Description = "Description about the book1",
                             LanguageId = 1,
@@ -215,14 +205,14 @@ namespace Infrastructure.Migrations
                             RentalPrice = 1.20m,
                             Title = "Book1",
                             UnitNumber = 3,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2299),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6693),
                             UpdatedBy = 1,
                             YearOfPublish = 1999
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2301),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6695),
                             CreatedBy = 1,
                             Description = "Description about the book2",
                             LanguageId = 2,
@@ -231,14 +221,14 @@ namespace Infrastructure.Migrations
                             RentalPrice = 1.50m,
                             Title = "Book2",
                             UnitNumber = 3,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2302),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6696),
                             UpdatedBy = 1,
                             YearOfPublish = 1899
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2306),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6697),
                             CreatedBy = 1,
                             Description = "Description about the book3",
                             LanguageId = 1,
@@ -247,14 +237,14 @@ namespace Infrastructure.Migrations
                             RentalPrice = 2.20m,
                             Title = "Book3",
                             UnitNumber = 3,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2306),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6698),
                             UpdatedBy = 1,
                             YearOfPublish = 2005
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2308),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6699),
                             CreatedBy = 1,
                             Description = "Description about the book tesla",
                             LanguageId = 2,
@@ -263,7 +253,7 @@ namespace Infrastructure.Migrations
                             RentalPrice = 1.90m,
                             Title = "Tesla",
                             UnitNumber = 5,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2308),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6699),
                             UpdatedBy = 1,
                             YearOfPublish = 2018
                         });
@@ -276,9 +266,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasMaxLength(25)
@@ -315,9 +302,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
@@ -328,47 +312,41 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            BookId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2329),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6716),
                             CreatedBy = 1,
                             OrderId = 1,
                             RentedFromDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RentedToDate = new DateTime(2020, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReturnedDate = new DateTime(2020, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "Closed",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2330),
-                            UpdatedBy = 1,
-                            UserId = 1
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6716),
+                            UpdatedBy = 1
                         },
                         new
                         {
                             Id = 2,
-                            BookId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2332),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6718),
                             CreatedBy = 1,
                             OrderId = 2,
                             RentedFromDate = new DateTime(2020, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RentedToDate = new DateTime(2020, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReturnedDate = new DateTime(2020, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "Closed",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2333),
-                            UpdatedBy = 1,
-                            UserId = 2
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6719),
+                            UpdatedBy = 1
                         },
                         new
                         {
                             Id = 3,
-                            BookId = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2334),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6720),
                             CreatedBy = 1,
                             OrderId = 3,
                             RentedFromDate = new DateTime(2020, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RentedToDate = new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReturnedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = "Opened",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2335),
-                            UpdatedBy = 1,
-                            UserId = 1
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6720),
+                            UpdatedBy = 1
                         });
                 });
 
@@ -416,33 +394,33 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2350),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6739),
                             CreatedBy = 1,
                             Name = "England",
                             ShortName = "Eng",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2351),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6739),
                             UpdatedBy = 1,
                             VAT = 25
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2352),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6741),
                             CreatedBy = 1,
                             Name = "France",
                             ShortName = "Fra",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2353),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6741),
                             UpdatedBy = 1,
                             VAT = 20
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2354),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6742),
                             CreatedBy = 1,
                             Name = "Germany",
                             ShortName = "GER",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2354),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6743),
                             UpdatedBy = 1,
                             VAT = 10
                         });
@@ -491,45 +469,45 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2370),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6754),
                             CreatedBy = 1,
                             Description = "Description about the genre 1 ",
                             IsActive = true,
                             Name = "Genre 1",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2371),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6754),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2372),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6756),
                             CreatedBy = 1,
                             Description = "Description about the genre 2",
                             IsActive = false,
                             Name = "Genre 2",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2373),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6756),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2374),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6757),
                             CreatedBy = 1,
                             Description = "Description about the genre 3",
                             IsActive = true,
                             Name = "Genre 3",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2375),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6758),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2376),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6758),
                             CreatedBy = 1,
                             Description = "Description about the genre 3",
                             IsActive = true,
                             Name = "Documentary",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2376),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6759),
                             UpdatedBy = 1
                         });
                 });
@@ -574,31 +552,31 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2586),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6992),
                             CreatedBy = 1,
                             Name = "English",
                             ShortName = "Eng",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2587),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6993),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2589),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6994),
                             CreatedBy = 1,
                             Name = "France",
                             ShortName = "Fra",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2589),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6994),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2591),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6995),
                             CreatedBy = 1,
                             Name = "German",
                             ShortName = "Ger",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2591),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(6996),
                             UpdatedBy = 1
                         });
                 });
@@ -662,7 +640,7 @@ namespace Infrastructure.Migrations
                             Date = new DateTime(2020, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalRentalPrice = 1.60m,
                             TotalRentalPriceWithVAT = 2m,
-                            UserId = 1
+                            UserId = 3
                         });
                 });
 
@@ -702,28 +680,28 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2622),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7170),
                             CreatedBy = 1,
                             Name = "Publisher 1",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2623),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7171),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2624),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7172),
                             CreatedBy = 1,
                             Name = "Publisher 2",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2625),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7172),
                             UpdatedBy = 1
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2626),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7173),
                             CreatedBy = 1,
                             Name = "Publisher 3",
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2626),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7174),
                             UpdatedBy = 1
                         });
                 });
@@ -813,7 +791,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Adress = "Adresa 1",
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2642),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7191),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name 1",
@@ -821,7 +799,7 @@ namespace Infrastructure.Migrations
                             LastName = "Surname 1",
                             Password = "123456",
                             Role = 0,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2644),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7191),
                             UpdatedBy = 1,
                             Username = "User1"
                         },
@@ -829,7 +807,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Adress = "Adresa 2",
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2647),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7194),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name 2",
@@ -837,7 +815,7 @@ namespace Infrastructure.Migrations
                             LastName = "Surname 2",
                             Password = "123456",
                             Role = 0,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2647),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7194),
                             UpdatedBy = 1,
                             Username = "User2"
                         },
@@ -845,7 +823,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Adress = "Adresa 2",
-                            Created = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2649),
+                            Created = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7196),
                             CreatedBy = 1,
                             DateOfBirth = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Name 2",
@@ -853,7 +831,7 @@ namespace Infrastructure.Migrations
                             LastName = "Surname 2",
                             Password = "123456",
                             Role = 0,
-                            Updated = new DateTime(2022, 7, 5, 17, 9, 50, 892, DateTimeKind.Utc).AddTicks(2649),
+                            Updated = new DateTime(2022, 7, 9, 17, 27, 2, 388, DateTimeKind.Utc).AddTicks(7196),
                             UpdatedBy = 1,
                             Username = "User2"
                         });
@@ -996,6 +974,48 @@ namespace Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BookOrder", b =>
+                {
+                    b.Property<int>("BooksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrdersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BooksId", "OrdersId");
+
+                    b.HasIndex("OrdersId");
+
+                    b.ToTable("BookOrder");
+
+                    b.HasData(
+                        new
+                        {
+                            BooksId = 1,
+                            OrdersId = 1
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            OrdersId = 1
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            OrdersId = 2
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            OrdersId = 3
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            OrdersId = 3
+                        });
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.Author", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Country", "Country")
@@ -1009,19 +1029,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Book", b =>
                 {
-                    b.HasOne("ApplicationCore.Entities.BookRental", null)
-                        .WithMany("Book")
-                        .HasForeignKey("BookRentalId");
-
                     b.HasOne("ApplicationCore.Entities.Language", "Language")
                         .WithMany("Books")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ApplicationCore.Entities.Order", null)
-                        .WithMany("Books")
-                        .HasForeignKey("OrderId");
 
                     b.HasOne("ApplicationCore.Entities.Publisher", "Publisher")
                         .WithMany("Books")
@@ -1051,11 +1063,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
                 {
-                    b.HasOne("ApplicationCore.Entities.User", null)
+                    b.HasOne("ApplicationCore.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.SystemSettings", b =>
@@ -1110,17 +1124,22 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.BookRental", b =>
+            modelBuilder.Entity("BookOrder", b =>
                 {
-                    b.Navigation("Book");
+                    b.HasOne("ApplicationCore.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Entities.Order", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Language", b =>
-                {
-                    b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
                 {
                     b.Navigation("Books");
                 });
