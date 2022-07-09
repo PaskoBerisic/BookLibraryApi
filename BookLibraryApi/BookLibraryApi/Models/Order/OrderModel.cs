@@ -13,7 +13,7 @@ namespace BookLibraryApi.Models
         public decimal TotalRentalPriceWithVAT { get; set; }
         public string? Currency { get; set; }
         
-        public int UserId { get; set; }
+        public UserModel? User { get; set; }
         public ICollection<BookModel>? Books { get; set; }
 
     }

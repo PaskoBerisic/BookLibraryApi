@@ -4,9 +4,6 @@ namespace BookLibraryApi.Models.Order
 {
     public class OrderModelShort
     {
-        public ICollection<BookRentalModelShort> RentedBooks { get; set; }
-        public DateTime Date { get; set; }
-        public decimal TotalRentalPrice { get; set; }
-
+        public int Id { get; set; }
     }
 }

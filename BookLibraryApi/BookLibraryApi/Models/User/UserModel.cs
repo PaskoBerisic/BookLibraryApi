@@ -16,6 +16,6 @@ namespace BookLibraryApi.Models
         public string? Adress { get; set; }
         public Role Role { get; set; }
         //Many to Many
-        //public ICollection<OrderModelShort>? Orders { get; set; }
+        public ICollection<OrderModel>? Orders { get; set; }
     }
 }

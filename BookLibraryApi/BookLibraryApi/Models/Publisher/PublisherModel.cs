@@ -7,6 +7,6 @@ namespace BookLibraryApi.Models
         public int Id { get; set; }
         public string? Name { get; set; }
         // Many to Many
-        //public ICollection<BookModel>? Books { get; set; }
+        public ICollection<BookModel>? Books { get; set; }
     }
 }
