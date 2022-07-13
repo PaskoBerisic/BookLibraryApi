@@ -12,6 +12,6 @@ namespace BookLibraryApi.Models.Author
         // One to Many
         public int CountryId { get; set; }
         // Many to Many
-        //public ICollection<BookModelShort> Books { get; set; }
+        public ICollection<BookModelShort> Books { get; set; }
     }
 }

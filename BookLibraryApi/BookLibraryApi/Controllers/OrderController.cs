@@ -24,19 +24,19 @@ namespace BookLibraryApi.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> Get()
         {
-            var orders = await orderService.GetAllOrdersWith();
+            var orders = await orderService.GetAll();
             return Ok(mapper.Map<List<OrderModel>>(orders));
         }
         [HttpGet("allWith")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWith()
         {
-            var orders = await orderService.GetAllOrdersWith();
+            var orders = await orderService.GetAll();
             return Ok(mapper.Map<List<OrderModel>>(orders));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetById(int id)
         {
-            var orders = await orderService.GetAllOrdersWith();
+            var orders = await orderService.GetAll();
             foreach (var order in orders)
             {
                 if (order.Id == id)
@@ -56,7 +56,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<OrderModel>> Add([FromBody] OrderPostModel orderPostModel)
         {
             var order = mapper.Map<Order>(orderPostModel);
-            var orderAdded = await orderService.AddOrder(order);
+            var orderAdded = await orderService.Add(order);
 
             return CreatedAtAction(nameof(GetById), new { orderAdded.Id }, orderAdded);
         }
@@ -65,14 +65,14 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<OrderModel>> Update([FromBody] OrderModel orderModel)
         {
             var item = mapper.Map<Order>(orderModel);
-            await orderService.UpdateOrder(item);
+            await orderService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<OrderModel>> Delete(int id)
         {
-            await orderService.DeleteOrderById(id);
+            await orderService.DeleteById(id);
             return Ok($"Order with id {id} deleted");
         }
     

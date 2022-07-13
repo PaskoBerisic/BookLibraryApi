@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
 using BookLibraryApi.Models;
+using BookLibraryApi.Models.Country;
 using BookLibraryApi.Models.Genre;
 using BookLibraryApi.Models.Language;
 using BookLibraryApi.Models.Publisher;
@@ -46,13 +47,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Country/All")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetAllCountries()
         {
-            var countries = await countryService.GetAllCountires();
+            var countries = await countryService.GetAll();
             return Ok(mapper.Map<List<CountryModel>>(countries));
         }
         [HttpGet("Country/{id}")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountryById(int id)
         {
-            var countries = await countryService.GetAllCountires();
+            var countries = await countryService.GetAll();
             foreach(var country1 in countries)
             {
                 if(country1.Id == id)
@@ -68,10 +69,10 @@ namespace BookLibraryApi.Controllers
             //return Ok(countryModel);
         }
         [HttpPost("Country")]
-        public async Task<ActionResult<CountryModel>> AddCountry([FromBody] CountryModel countryModel)
+        public async Task<ActionResult<CountryModel>> AddCountry([FromBody] CountryPostModel countryPostModel)
         {
-            var countries = mapper.Map<Country>(countryModel);
-            var countriesAdded = await countryService.AddCountry(countries);
+            var countries = mapper.Map<Country>(countryPostModel);
+            var countriesAdded = await countryService.Add(countries);
 
             return CreatedAtAction(nameof(GetCountryById), new { countriesAdded.Id }, countriesAdded);
         }
@@ -79,14 +80,14 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] CountryModel countryModel)
         {
             var item = mapper.Map<Country>(countryModel);
-            await countryService.UpdateCountry(item);
+            await countryService.Update(item);
             return CreatedAtAction(nameof(GetCountryById), new { item.Id }, item);
         }
 
         [HttpDelete("Country/{id}")]
         public async Task<ActionResult<CountryModel>> DeleteCountryById(int id)
         {
-            await countryService.DeleteCountryById(id);
+            await countryService.DeleteById(id);
             return Ok($"Country with id {id} deleted");
         }
         #endregion
@@ -97,13 +98,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Genre/All")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetAllGenres()
         {
-            var genres = await genreService.GetAllGenresWith();
+            var genres = await genreService.GetAll();
             return Ok(mapper.Map<List<GenreModel>>(genres));
         }
         [HttpGet("Genre/{id}")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetGenreById(int id)
         {
-            var genres = await genreService.GetAllGenresWith();
+            var genres = await genreService.GetAll();
             foreach (var genre in genres)
             {
                 if (genre.Id == id)
@@ -115,7 +116,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<GenreModel>> AddGenre([FromBody] GenrePostModel genrePostModel)
         {
             var genres = mapper.Map<Genre>(genrePostModel);
-            var genresAdded = await genreService.AddGenre(genres);
+            var genresAdded = await genreService.Add(genres);
 
             return CreatedAtAction(nameof(GetGenreById), new { genresAdded.Id }, genresAdded);
         }
@@ -123,14 +124,14 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<GenreModel>> UpdateGenre([FromBody] GenreModel genreModel)
         {
             var item = mapper.Map<Genre>(genreModel);
-            await genreService.UpdateGenre(item);
+            await genreService.Update(item);
             return CreatedAtAction(nameof(GetGenreById), new { item.Id }, item);
         }
        
         [HttpDelete("Genre/{id}")]
         public async Task<ActionResult<GenreModel>> DeleteGenreById(int id)
         {
-            await genreService.DeleteGenreById(id);
+            await genreService.DeleteById(id);
             return Ok($"Genre with id {id} deleted");
         }
         #endregion
@@ -141,13 +142,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Language/All")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetAllLanguages()
         {
-            var languages = await languageService.GetAllLanguagesWith();
+            var languages = await languageService.GetAll();
             return Ok(mapper.Map<List<LanguageModel>>(languages));
         }
         [HttpGet("Language/{id}")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetLanguageById(int id)
         {
-            var languages = await languageService.GetAllLanguagesWith();
+            var languages = await languageService.GetAll();
             foreach (var language in languages)
             {
                 if (language.Id == id)
@@ -159,7 +160,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<LanguageModel>> AddLanguage([FromBody] LanguagePostModel languagePostModel)
         {
             var languages = mapper.Map<Language>(languagePostModel);
-            var languagesAdded = await languageService.AddLanguage(languages);
+            var languagesAdded = await languageService.Add(languages);
 
             return CreatedAtAction(nameof(GetLanguageById), new { languagesAdded.Id }, languagesAdded);
         }
@@ -167,13 +168,13 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<LanguageModel>> UpdateLanguage([FromBody] LanguageModel languageModel)
         {
             var item = mapper.Map<Language>(languageModel);
-            await languageService.UpdateLanguage(item);
+            await languageService.Update(item);
             return CreatedAtAction(nameof(GetLanguageById), new { item.Id }, item);
         }
         [HttpDelete("Language/{id}")]
         public async Task<ActionResult<LanguageModel>> DeleteLanguageById(int id)
         {
-            await languageService.DeleteLanguageById(id);
+            await languageService.DeleteById(id);
             return Ok($"Language with id {id} deleted");
         }
         #endregion
@@ -184,13 +185,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Publisher/All")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetAllPublishers()
         {
-            var publishers = await publisherService.GetAllPublishersWith();
+            var publishers = await publisherService.GetAll();
             return Ok(mapper.Map<List<PublisherModel>>(publishers));
         }
         [HttpGet("Publisher/{id}")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetPublisherById(int id)
         {
-            var publishers = await publisherService.GetAllPublishersWith();
+            var publishers = await publisherService.GetAll();
             foreach (var publisher in publishers)
             {
                 if (publisher.Id == id)
@@ -202,7 +203,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<PublisherModel>> AddPublisher([FromBody] PublisherPostModel publisherPostModel)
         {
             var publisher = mapper.Map<Publisher>(publisherPostModel);
-            var publishersAdded = await publisherService.AddPublisher(publisher);
+            var publishersAdded = await publisherService.Add(publisher);
             return CreatedAtAction(nameof(GetPublisherById), new { publishersAdded.Id }, publishersAdded);
 
         }
@@ -210,13 +211,13 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<PublisherModel>> UpdatePublisher([FromBody] PublisherModel publisherModel)
         {
             var item = mapper.Map<Publisher>(publisherModel);
-            await publisherService.UpdatePublisher(item);
+            await publisherService.Update(item);
             return CreatedAtAction(nameof(GetPublisherById), new { item.Id }, item);
         }
         [HttpDelete("Publisher/{id}")]
         public async Task<ActionResult<PublisherModel>> DeletePublisherById(int id)
         {
-            await publisherService.DeletePublisherById(id);
+            await publisherService.DeleteById(id);
             return Ok($"Publisher with id {id} deleted");
         }
         #endregion
@@ -227,13 +228,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("User/All")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
         {
-            var users = await userService.GetAllUsersWith();
+            var users = await userService.GetAll();
             return Ok(mapper.Map<List<UserModel>>(users));
         }
         [HttpGet("User/{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUserById(int id)
         {
-            var users = await userService.GetAllUsersWith();
+            var users = await userService.GetAll();
             foreach (var user in users)
             {
                 if (user.Id == id)
@@ -245,20 +246,20 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<UserModel>> AddUser([FromBody] UserPostModel userPostModel)
         {
             var user = mapper.Map<User>(userPostModel);
-            var userAdded = await userService.AddUser(user);
+            var userAdded = await userService.Add(user);
             return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
         }
         [HttpPut("User")]
         public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserModel userModel)
         {
             var item = mapper.Map<User>(userModel);
-            await userService.UpdateUser(item);
+            await userService.Update(item);
             return CreatedAtAction(nameof(GetUserById), new { item.Id }, item);
         }
         [HttpDelete("User/{id}")]
         public async Task<ActionResult<UserModel>> DeleteUserById(int id)
         {
-            await userService.DeleteUserById(id);
+            await userService.DeleteById(id);
             return Ok($"User with id {id} deleted");
         }
         #endregion

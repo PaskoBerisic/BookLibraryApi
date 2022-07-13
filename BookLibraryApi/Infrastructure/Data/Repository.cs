@@ -67,7 +67,5 @@ namespace Infrastructure.Data
             context.Remove(entity);
             await SaveChangesAsync();
         }
-
-        
     }
 }

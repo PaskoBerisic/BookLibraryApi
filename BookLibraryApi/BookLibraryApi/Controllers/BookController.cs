@@ -24,7 +24,7 @@ namespace BookLibraryApi.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<BookModel>>> Get()
         {
-            var books = await bookService.GetAllBooksWith();
+            var books = await bookService.GetAll();
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
@@ -32,13 +32,13 @@ namespace BookLibraryApi.Controllers
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
         {
-            var books = await bookService.GetAllBooksWith();
+            var books = await bookService.GetAll();
             return Ok(mapper.Map<List<BookModel>>(books));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetById(int id)
         {
-            var books = await bookService.GetAllBooksWith();
+            var books = await bookService.GetAll();
             foreach (var book in books)
             {
                 if (book.Id == id)
@@ -48,10 +48,11 @@ namespace BookLibraryApi.Controllers
         }
 
         [HttpPost]
+        //[Produces("application/json")]
         public async Task<ActionResult<BookModel>> Add([FromBody] BookPostModel bookPostModel )
         {
             var book = mapper.Map<Book>(bookPostModel);
-            var bookAdded = await bookService.AddBook(book);
+            var bookAdded = await bookService.Add(book);
             return CreatedAtAction(nameof(GetById), new { bookAdded.Id }, bookAdded);
         }
 
@@ -59,14 +60,14 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<BookModel>> Update([FromBody] BookModel bookModel)
         {
             var item = mapper.Map<Book>(bookModel);
-            await bookService.UpdateBook(item);
+            await bookService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<BookModel>> Delete(int id)
         {
-            await bookService.DeleteBookById(id);
+            await bookService.DeleteById(id);
             return Ok($"Book with id {id} deleted");
         }
     }

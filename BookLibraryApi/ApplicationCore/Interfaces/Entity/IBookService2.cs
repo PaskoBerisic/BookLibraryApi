@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces.Entity
 {
-    public interface IUserBasketService : ICrudService<UserBasket>
+    public interface IBookService2 : ICrudService<Book>
     {
     }
 }

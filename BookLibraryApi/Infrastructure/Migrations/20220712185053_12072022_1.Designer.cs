@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(BookLibraryContext))]
-    partial class BookLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20220712185053_12072022_1")]
+    partial class _12072022_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,6 @@ namespace Infrastructure.Migrations
                             FirstName = "Name",
                             LastName = "Surname",
                             Updated = new DateTime(2022, 7, 12, 18, 50, 51, 326, DateTimeKind.Utc).AddTicks(4666),
-
                             UpdatedBy = 1
                         },
                         new
@@ -1000,7 +1001,22 @@ namespace Infrastructure.Migrations
                         new
                         {
                             BooksId = 1,
-                            OrdersId = 4
+                            OrdersId = 1
+                        },
+                        new
+                        {
+                            BooksId = 2,
+                            OrdersId = 1
+                        },
+                        new
+                        {
+                            BooksId = 4,
+                            OrdersId = 2
+                        },
+                        new
+                        {
+                            BooksId = 3,
+                            OrdersId = 3
                         },
                         new
                         {
@@ -1009,13 +1025,13 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            BooksId = 3,
-                            OrdersId = 2
+                            BooksId = 1,
+                            OrdersId = 4
                         },
                         new
                         {
-                            BooksId = 4,
-                            OrdersId = 1
+                            BooksId = 19,
+                            OrdersId = 4
                         });
                 });
 

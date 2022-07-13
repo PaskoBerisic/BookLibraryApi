@@ -1,8 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
-using ApplicationCore.Specifications.Authors;
-using ApplicationCore.Specifications.Genres;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,32 +10,14 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
-    public class BookService : IBookService
+    public class BookService2 : IBookService2
     {
         private readonly IRepository<Book> bookRepository;
-        private readonly IAuthorService authorService;
-        private readonly IGenreService genreService;
-
-        public BookService(IRepository<Book> bookRepository, IAuthorService authorService, IGenreService genreService)
+        public BookService2(IRepository<Book> bookRepository)
         {
             this.bookRepository = bookRepository;
-            this.authorService = authorService;
-            this.genreService = genreService;
         }
-        public async Task GetAuthors(Book book)
-        {
-            var specification = new AuthorsForBookSpecification(book.Authors.Select(x => x.Id).ToList());
-            var bookAuthors = (await authorService.GetAllWithSpec(specification)).ToList();
-            bookAuthors.AddRange(book.Authors.Where(x => !bookAuthors.Select(x => x.Id).Contains(x.Id)));
-            book.Authors = bookAuthors;
-        }
-        public async Task GetGenres(Book book)
-        {
-            var specification = new GenresForBooksSpecification(book.Genres.Select(x => x.Id).ToList());
-            var bookGenres = (await genreService.GetAllWithSpec(specification)).ToList();
-            bookGenres.AddRange(book.Genres.Where(x => !bookGenres.Select(x => x.Id).Contains(x.Id)));
-            book.Genres = bookGenres;
-        }
+
 
         public async Task<IEnumerable<Book>> GetAll()
         {
@@ -61,8 +41,6 @@ namespace ApplicationCore.Services
         }
         public async Task<Book> Add(Book book)
         {
-            await GetAuthors(book);
-            await GetGenres(book);
             return await bookRepository.AddAsync(book);
         }
 
@@ -78,6 +56,5 @@ namespace ApplicationCore.Services
         {
             await bookRepository.DeleteByIdAsync(id);
         }
-
     }
 }

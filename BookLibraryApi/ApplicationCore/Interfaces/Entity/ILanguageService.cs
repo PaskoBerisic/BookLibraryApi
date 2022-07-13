@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces.Entity
 {
-    public interface ILanguageService
+    public interface ILanguageService : ICrudService<Language>
     {
-        Task<IEnumerable<Language>> GetAllLanguagesWith();
-        Task<Language> GetLanguageById(int id);
-        Task<Language> AddLanguage(Language language);
-        Task UpdateLanguage(Language language);
-        Task DeleteLanguageById(int id);
-
     }
 }

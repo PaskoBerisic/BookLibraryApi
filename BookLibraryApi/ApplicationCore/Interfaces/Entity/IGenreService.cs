@@ -7,13 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces.Entity
 {
-    public interface IGenreService
+    public interface IGenreService : ICrudService<Genre>
     {
-        Task<IEnumerable<Genre>> GetAllGenresWith();
-        Task<IEnumerable<Genre>> GetGenresWithIds(ISpecification<Genre> specification);
-        Task<Genre> GetGenreById(int id);
-        Task<Genre> AddGenre(Genre genre);
-        Task UpdateGenre(Genre genre);
-        Task DeleteGenreById(int id);
     }
 }

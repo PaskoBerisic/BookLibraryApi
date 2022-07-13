@@ -13,9 +13,9 @@ namespace BookLibraryApi.Models
         public string? Password { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string? Adress { get; set; }
+        public string? Address { get; set; }
         public Role Role { get; set; }
         //Many to Many
-        public ICollection<OrderModel>? Orders { get; set; }
+        public ICollection<OrderModelShort>? Orders { get; set; }
     }
 }

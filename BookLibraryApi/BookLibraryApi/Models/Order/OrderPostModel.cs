@@ -1,8 +1,9 @@
-﻿namespace BookLibraryApi.Models.Order
+﻿using BookLibraryApi.Models.Book;
+
+namespace BookLibraryApi.Models.Order
 {
     public class OrderPostModel
     {
-        public int Id { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalRentalPrice { get; set; }
         public decimal TotalRentalPriceWithVAT { get; set; }
@@ -10,7 +11,7 @@
         // One to Many
         public int UserId { get; set; }
         // Many to Many
-        // public ICollection<BookModelShort>? Books { get; set; }
+        public ICollection<BookModelShort>? Books { get; set; }
 
     }
 }

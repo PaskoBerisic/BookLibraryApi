@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces.Entity
 {
-    public interface ICountryService
+    public interface ICountryService : ICrudService<Country>
     {
-        Task<IEnumerable<Country>> GetAllCountires();
-        Task<Country> GetCountryById(int id);
-        Task<Country> AddCountry(Country country);
-        Task UpdateCountry(Country country);
-        Task DeleteCountryById(int id);
     }
 }

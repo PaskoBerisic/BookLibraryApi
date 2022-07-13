@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Books;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,43 +14,56 @@ namespace ApplicationCore.Services
     public class AuthorService : IAuthorService
     {
         private readonly IRepository<Author> authorRepository;
-        public AuthorService(IRepository<Author> authorRepository)
+        private readonly IBookService2 bookService;
+        public AuthorService(IRepository<Author> authorRepository, IBookService2 bookService)
         {
             this.authorRepository = authorRepository;
+            this.bookService = bookService;
         }
-        public async Task<IEnumerable<Author>> GetAllAuthors()
+
+        public async Task GetBooks(Author author)
         {
-            return await authorRepository.GetAllAsync();
+            var specification = new BooksForSpecification(author.Books.Select(x => x.Id).ToList());
+            var authorBooks = (await bookService.GetAllWithSpec(specification)).ToList();
+            authorBooks.AddRange(author.Books.Where(x => !authorBooks.Select(x => x.Id).Contains(x.Id)));
+            author.Books = authorBooks;
         }
-        public async Task<IEnumerable<Author>> GetAllAuthorsWith()
+
+        public async Task<IEnumerable<Author>> GetAll()
         {
             return await authorRepository.GetAllWithIncludesAsync(new List<Expression<Func<Author, object>>>() { x => x.Books, y => y.Country });
         }
-        public async Task<IEnumerable<Author>> GetAuthorWithIds(ISpecification<Author> specification)
+
+        public async Task<IEnumerable<Author>> GetAllWith(ISpecification<Author> specification)
+        {
+            var authors = await authorRepository.GetAllWithSpecAsync(specification);
+            return authors;
+        }
+
+        public async Task<IEnumerable<Author>> GetAllWithSpec(ISpecification<Author> specification)
         {
             return await authorRepository.GetAllWithSpecAsync(specification);
         }
-        public async Task<Author> GetAuthorById(int id)
+
+        public async Task<Author> GetById(int id)
         {
             return await authorRepository.GetByIdAsync(id);
         }
-        public async Task<Author> GetAuthorByName(string name)
+        public async Task<Author> Add(Author author)
         {
-            return await authorRepository.GetByNameAsync(name);
-        }
-        public async Task<Author> AddAuthor(Author author)
-        {
+            await GetBooks(author);
             return await authorRepository.AddAsync(author);
         }
-        public async Task UpdateAuthor(Author author)
+
+        public async Task Update(Author author)
         {
             await authorRepository.UpdateAsync(author);
         }
-        public async Task DeleteAuthor(Author author)
+        public async Task Delete(Author author)
         {
             await authorRepository.DeleteAsync(author);
         }
-        public async Task DeleteAuthorById(int id)
+        public async Task DeleteById(int id)
         {
             await authorRepository.DeleteByIdAsync(id);
         }
