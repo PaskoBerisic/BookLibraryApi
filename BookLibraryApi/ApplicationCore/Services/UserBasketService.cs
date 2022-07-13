@@ -18,31 +18,45 @@ namespace ApplicationCore.Services
             this.userBasketRepository = userBasketRepository;
         }
 
-        public async Task<IEnumerable<UserBasket>> GetAllUserBaskets()
-        {
-            return await userBasketRepository.GetAllAsync();
-
-        }
-        public async Task<IEnumerable<UserBasket>> GetAllUserBasketsWith()
+        public async Task<IEnumerable<UserBasket>> GetAll()
         {
             return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books });
         }
-        public async Task<UserBasket> GetUserBasketById(int id)
+
+        public async Task<IEnumerable<UserBasket>> GetAllWith(ISpecification<UserBasket> specification)
+        {
+            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books });
+        }
+
+        public async Task<IEnumerable<UserBasket>> GetAllWithSpec(ISpecification<UserBasket> specification)
+        {
+            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books });
+        }
+
+        public async Task<UserBasket> GetById(int id)
         {
             return await userBasketRepository.GetByIdAsync(id);
         }
-        public async Task<UserBasket> AddUserBasket(UserBasket userBasket)
+        public async Task<UserBasket> Add(UserBasket userBasket)
         {
             return await userBasketRepository.AddAsync(userBasket);
         }
-        public async Task UpdateUserBasket(UserBasket userBasket)
+
+        public async  Task Update(UserBasket userBasket)
         {
             await userBasketRepository.UpdateAsync(userBasket);
         }
-        public async Task DeleteUserBasketById(int id)
+        public async Task Delete(UserBasket userBasket)
+        {
+            await userBasketRepository.DeleteAsync(userBasket);
+        }
+
+        public async Task DeleteById(int id)
         {
             await userBasketRepository.DeleteByIdAsync(id);
         }
+
     }
-    
+
 }
+

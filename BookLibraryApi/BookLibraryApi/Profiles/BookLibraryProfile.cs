@@ -29,6 +29,7 @@ namespace BookLibraryApi.Profiles
             CreateMap<BookRental, BookRentalModelShort>().ReverseMap();
 
             CreateMap<Country, CountryModel>().ReverseMap();
+            CreateMap<Country, CountryPostModel>().ReverseMap();
             CreateMap<Country, CountryModelShort>().ReverseMap();
 
             CreateMap<Genre, GenreModel>().ReverseMap();

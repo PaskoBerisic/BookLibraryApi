@@ -15,8 +15,8 @@ namespace BookLibraryApi.Models.Book
         public int PublisherId { get; set; }
         public int LanguageId { get; set; }
         // Many to Many
-        //public ICollection<AuthorModelShort>? Authors { get; set; }
-        //public ICollection<GenreModelShort>? Genres { get; set; }
+        public ICollection<AuthorModelShort>? Authors { get; set; }
+        public ICollection<GenreModelShort>? Genres { get; set; }
 
     }
 }

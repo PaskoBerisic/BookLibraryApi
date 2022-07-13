@@ -24,16 +24,18 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped(typeof(IBookLibraryService), typeof(BookLibraryService));
-builder.Services.AddScoped(typeof(IAuthorService), typeof(AuthorService));
-builder.Services.AddScoped(typeof(IBookService), typeof(BookService));
-builder.Services.AddScoped(typeof(ICountryService), typeof(CountryService));
-builder.Services.AddScoped(typeof(IGenreService), typeof(GenreService));
-builder.Services.AddScoped(typeof(ILanguageService), typeof(LanguageService));
-builder.Services.AddScoped(typeof(IOrderService), typeof(OrderService));
-builder.Services.AddScoped(typeof(IPublisherService), typeof(PublisherService));
-builder.Services.AddScoped(typeof(IUserBasketService), typeof(UserBasketService));
-builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
+//builder.Services.AddScoped(typeof(IBookLibraryService), typeof(BookLibraryService));
+
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookService2, BookService2>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<ILanguageService, LanguageService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<IUserBasketService, UserBasketService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddDbContext<BookLibraryContext>();
 builder.Services.AddScoped<BookLibraryContext>();

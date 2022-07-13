@@ -13,7 +13,7 @@ namespace ApplicationCore.Entities
         public string? Password { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string? Adress { get; set; }
+        public string? Address { get; set; }
         public Role Role { get; set; }
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; }

@@ -8,6 +8,6 @@ namespace BookLibraryApi.Models.Genre
         public bool IsActive { get; set; }
         public string? Description { get; set; }
         // Many to Many
-        //public ICollection<BookModelShort>? Books { get; set; }
+        public ICollection<BookModelShort>? Books { get; set; }
     }
 }

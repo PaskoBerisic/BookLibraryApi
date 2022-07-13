@@ -24,14 +24,14 @@ namespace BookLibraryApi.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> Get()
         {
-            var authors = await authorService.GetAllAuthorsWith();
+            var authors = await authorService.GetAll();
             return Ok(mapper.Map<List<AuthorModel>>(authors));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> GetById(int id)
         {
-            var authors = await authorService.GetAllAuthorsWith();
+            var authors = await authorService.GetAll();
             foreach (var author in authors)
             {
                 if (author.Id == id)
@@ -43,7 +43,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<AuthorModel>> Add([FromBody] AuthorPostModel authorPostModel)
         {
             var author = mapper.Map<Author>(authorPostModel);
-            var authorAdded = await authorService.AddAuthor(author);
+            var authorAdded = await authorService.Add(author);
 
             return CreatedAtAction(nameof(GetById), new { authorAdded.Id }, authorAdded);
         }
@@ -52,14 +52,14 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<AuthorModel>> Update([FromBody] AuthorModel authorModel)
         {
             var item = mapper.Map<Author>(authorModel);
-            await authorService.UpdateAuthor(item);
+            await authorService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<AuthorModel>> Delete(int id)
         {
-            await authorService.DeleteAuthorById(id);
+            await authorService.DeleteById(id);
             return Ok($"Author with id {id} deleted");
         }
     }
