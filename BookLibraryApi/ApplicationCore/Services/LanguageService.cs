@@ -56,6 +56,7 @@ namespace ApplicationCore.Services
 
         public async Task Update(Language language)
         {
+            await GetBooks(language);
             await languageRepository.UpdateAsync(language);
         }
         public async Task Delete(Language language)

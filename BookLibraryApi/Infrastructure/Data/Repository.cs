@@ -67,5 +67,13 @@ namespace Infrastructure.Data
             context.Remove(entity);
             await SaveChangesAsync();
         }
+
+        // Spec
+        public async Task<IEnumerable<T>> FindWithSpecificationPattern(ISpecification<T> specification = null)
+        {
+            var query = SpecificationEvaulator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
+            return await query.ToListAsync();
+        }
+
     }
 }

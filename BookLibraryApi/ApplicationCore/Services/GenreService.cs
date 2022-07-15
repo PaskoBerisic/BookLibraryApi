@@ -57,6 +57,7 @@ namespace ApplicationCore.Services
 
         public async Task Update(Genre genre)
         {
+            await GetBooks(genre);
             await genreRepository.UpdateAsync(genre);
         }
         public async Task Delete(Genre genre)

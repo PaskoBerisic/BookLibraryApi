@@ -68,6 +68,8 @@ namespace ApplicationCore.Services
 
         public async Task Update(Book book)
         {
+            await GetAuthors(book);
+            await GetGenres(book);
             await bookRepository.UpdateAsync(book);
         }
         public async Task Delete(Book book)
@@ -79,5 +81,15 @@ namespace ApplicationCore.Services
             await bookRepository.DeleteByIdAsync(id);
         }
 
+        //public async Task<IEnumerable<Book>> FindWithSpecificationPattern(ISpecification<Book> specification = null)
+        //{
+        //    return await bookRepository.GetAllWithSpecAsync(specification);
+        //}
+
+        public async Task<IEnumerable<Book>> FindWithSpecificationPattern(ISpecification<Book> specification)
+        {
+            return await bookRepository.FindWithSpecificationPattern(specification);
+        }
     }
 }
+

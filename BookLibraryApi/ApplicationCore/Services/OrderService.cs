@@ -55,6 +55,7 @@ namespace ApplicationCore.Services
 
         public async Task Update(Order order)
         {
+            await GetBooks(order);
             await orderRepository.UpdateAsync(order);
         }
         public async Task Delete(Order order)

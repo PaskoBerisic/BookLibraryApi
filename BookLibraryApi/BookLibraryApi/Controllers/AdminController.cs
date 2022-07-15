@@ -77,9 +77,9 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetCountryById), new { countriesAdded.Id }, countriesAdded);
         }
         [HttpPut("Country")]
-        public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] CountryModel countryModel)
+        public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] CountryPutModel countryPutModel)
         {
-            var item = mapper.Map<Country>(countryModel);
+            var item = mapper.Map<Country>(countryPutModel);
             await countryService.Update(item);
             return CreatedAtAction(nameof(GetCountryById), new { item.Id }, item);
         }
@@ -121,9 +121,9 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetGenreById), new { genresAdded.Id }, genresAdded);
         }
         [HttpPut("Genre")]
-        public async Task<ActionResult<GenreModel>> UpdateGenre([FromBody] GenreModel genreModel)
+        public async Task<ActionResult<GenreModel>> UpdateGenre([FromBody] GenrePutModel genrePutModel)
         {
-            var item = mapper.Map<Genre>(genreModel);
+            var item = mapper.Map<Genre>(genrePutModel);
             await genreService.Update(item);
             return CreatedAtAction(nameof(GetGenreById), new { item.Id }, item);
         }
@@ -165,9 +165,9 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetLanguageById), new { languagesAdded.Id }, languagesAdded);
         }
         [HttpPut("Language")]
-        public async Task<ActionResult<LanguageModel>> UpdateLanguage([FromBody] LanguageModel languageModel)
+        public async Task<ActionResult<LanguageModel>> UpdateLanguage([FromBody] LanguagePutModel languagePutModel)
         {
-            var item = mapper.Map<Language>(languageModel);
+            var item = mapper.Map<Language>(languagePutModel);
             await languageService.Update(item);
             return CreatedAtAction(nameof(GetLanguageById), new { item.Id }, item);
         }
@@ -208,9 +208,9 @@ namespace BookLibraryApi.Controllers
 
         }
         [HttpPut("Publisher")]
-        public async Task<ActionResult<PublisherModel>> UpdatePublisher([FromBody] PublisherModel publisherModel)
+        public async Task<ActionResult<PublisherModel>> UpdatePublisher([FromBody] PublisherPutModel publisherPutModel)
         {
-            var item = mapper.Map<Publisher>(publisherModel);
+            var item = mapper.Map<Publisher>(publisherPutModel);
             await publisherService.Update(item);
             return CreatedAtAction(nameof(GetPublisherById), new { item.Id }, item);
         }
@@ -250,9 +250,9 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
         }
         [HttpPut("User")]
-        public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserModel userModel)
+        public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserPutModel userPutModel)
         {
-            var item = mapper.Map<User>(userModel);
+            var item = mapper.Map<User>(userPutModel);
             await userService.Update(item);
             return CreatedAtAction(nameof(GetUserById), new { item.Id }, item);
         }

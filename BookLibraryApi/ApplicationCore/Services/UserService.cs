@@ -56,6 +56,7 @@ namespace ApplicationCore.Services
 
         public async Task Update(User user)
         {
+            await GetOrders(user);
             await userRepository.UpdateAsync(user);
         }
         public async Task Delete(User user)

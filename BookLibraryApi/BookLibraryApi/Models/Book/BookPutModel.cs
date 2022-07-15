@@ -1,11 +1,10 @@
 ﻿using BookLibraryApi.Models.Genre;
-using BookLibraryApi.Models.Language;
-using BookLibraryApi.Models.Publisher;
 
 namespace BookLibraryApi.Models.Book
 {
-    public class BookPostModel
+    public class BookPutModel
     {
+        public int Id { get; set; }
         public string? Title { get; set; }
         public int YearOfPublish { get; set; }
         public string? Description { get; set; }
@@ -18,6 +17,5 @@ namespace BookLibraryApi.Models.Book
         // Many to Many
         public ICollection<AuthorModelShort>? Authors { get; set; }
         public ICollection<GenreModelShort>? Genres { get; set; }
-
     }
 }

@@ -15,6 +15,7 @@ namespace BookLibraryApi.Models
         public string? Description { get; set; }
         public decimal RentalPrice { get; set; }
         public int UnitNumber { get; set; }
+        public int UnitsRented { get; set; }
 
         public PublisherModel? Publisher { get; set; }
         public LanguageModel? Language { get; set; }
