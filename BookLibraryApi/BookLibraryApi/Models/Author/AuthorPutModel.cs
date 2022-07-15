@@ -1,10 +1,10 @@
 ﻿using BookLibraryApi.Models.Book;
-using BookLibraryApi.Models.Country;
 
 namespace BookLibraryApi.Models.Author
 {
-    public class AuthorPostModel
-    {
+    public class AuthorPutModel
+    { 
+        public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -13,5 +13,6 @@ namespace BookLibraryApi.Models.Author
         public int CountryId { get; set; }
         // Many to Many
         public ICollection<BookModelShort>? Books { get; set; }
+
     }
 }

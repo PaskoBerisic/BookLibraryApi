@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Books;
 using AutoMapper;
 using BookLibraryApi.Models;
 using BookLibraryApi.Models.Book;
@@ -32,8 +33,24 @@ namespace BookLibraryApi.Controllers
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
         {
-            var books = await bookService.GetAll();
+            var specification = new BookWithAuthorsSpecification();
+            var books = await bookService.GetAllWithSpec(specification);
             return Ok(mapper.Map<List<BookModel>>(books));
+        }
+
+        [HttpGet("ByYearDesc")]
+        public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksByYearSpec()
+        {
+            var specification = new BooksByYearSpecification();
+            var books = await bookService.FindWithSpecificationPattern(specification);
+            return Ok(books);
+        }
+        [HttpGet("ByRentalNumber")]
+        public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksByRentalNumberSpec()
+        {
+            var specification = new BooksByRentalNumberSpecification();
+            var books = await bookService.FindWithSpecificationPattern(specification);
+            return Ok(books);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetById(int id)
@@ -48,7 +65,6 @@ namespace BookLibraryApi.Controllers
         }
 
         [HttpPost]
-        //[Produces("application/json")]
         public async Task<ActionResult<BookModel>> Add([FromBody] BookPostModel bookPostModel )
         {
             var book = mapper.Map<Book>(bookPostModel);
@@ -57,9 +73,9 @@ namespace BookLibraryApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<BookModel>> Update([FromBody] BookModel bookModel)
+        public async Task<ActionResult<BookModel>> Update([FromBody] BookPutModel bookPutModel)
         {
-            var item = mapper.Map<Book>(bookModel);
+            var item = mapper.Map<Book>(bookPutModel);
             await bookService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }

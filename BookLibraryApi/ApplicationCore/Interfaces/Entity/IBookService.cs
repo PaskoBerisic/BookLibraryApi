@@ -9,7 +9,7 @@ namespace ApplicationCore.Interfaces.Entity
 {
     public interface IBookService : ICrudService<Book>
     {
-        
+        Task<IEnumerable<Book>> FindWithSpecificationPattern(ISpecification<Book> specification = null);
     }
 }
 

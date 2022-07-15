@@ -62,9 +62,9 @@ namespace BookLibraryApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<OrderModel>> Update([FromBody] OrderModel orderModel)
-        {
-            var item = mapper.Map<Order>(orderModel);
+        public async Task<ActionResult<OrderModel>> Update([FromBody] OrderPutModel orderPutModel)
+            {
+            var item = mapper.Map<Order>(orderPutModel);
             await orderService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }

@@ -13,6 +13,7 @@ namespace ApplicationCore.Entities
         public decimal RentalPrice { get; set; }
         public decimal ListPrice { get; set; }
         public int UnitNumber { get; set; }
+        public int UnitsRented { get; set; }
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }

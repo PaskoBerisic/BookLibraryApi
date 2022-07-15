@@ -57,6 +57,7 @@ namespace ApplicationCore.Services
 
         public async Task Update(Author author)
         {
+            await GetBooks(author);
             await authorRepository.UpdateAsync(author);
         }
         public async Task Delete(Author author)

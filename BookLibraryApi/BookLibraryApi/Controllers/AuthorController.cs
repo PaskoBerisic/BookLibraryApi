@@ -49,9 +49,9 @@ namespace BookLibraryApi.Controllers
         }
         
         [HttpPut]
-        public async Task<ActionResult<AuthorModel>> Update([FromBody] AuthorModel authorModel)
+        public async Task<ActionResult<AuthorModel>> Update([FromBody] AuthorPutModel authorPutModel)
         {
-            var item = mapper.Map<Author>(authorModel);
+            var item = mapper.Map<Author>(authorPutModel);
             await authorService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
