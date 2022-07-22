@@ -10,6 +10,7 @@ using BookLibraryApi.Models.Language;
 using BookLibraryApi.Models.Order;
 using BookLibraryApi.Models.Publisher;
 using BookLibraryApi.Models.User;
+using BookLibraryApi.Models.UserBasket;
 
 namespace BookLibraryApi.Profiles
 {
@@ -62,6 +63,8 @@ namespace BookLibraryApi.Profiles
             CreateMap<User, UserPutModel>().ReverseMap();
 
             CreateMap<UserBasket, UserBasketModel>().ReverseMap();
+            CreateMap<UserBasket, UserBasketPostModel>().ReverseMap();
+            CreateMap<UserBasket, UserBasketPutModel>().ReverseMap();
         }
     }
 }

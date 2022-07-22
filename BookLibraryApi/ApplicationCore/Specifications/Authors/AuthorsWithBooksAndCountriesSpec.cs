@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,12 @@ namespace ApplicationCore.Specifications.Authors
     {
         public AuthorsWithBooksAndCountriesSpec() : base()
         {
-            AddInclude(x => x.Books);
-            AddInclude(x => x.Country);
+            AddInclude(x => x.Include(x => x.Books));
+            AddInclude(x => x.Include(x => x.Country));
         }
     }
 }
+
+
+//AddInclude(x => x.Include(x => x.Books).ThenInclude(x => x.Genres));
+

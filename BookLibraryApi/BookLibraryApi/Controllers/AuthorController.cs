@@ -21,7 +21,7 @@ namespace BookLibraryApi.Controllers
             this.mapper = mapper;
         }
         
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> Get()
         {
             var authors = await authorService.GetAll();

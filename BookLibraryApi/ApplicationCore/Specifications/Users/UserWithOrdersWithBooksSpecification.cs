@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationCore.Specifications.Users
 {
@@ -7,7 +8,7 @@ namespace ApplicationCore.Specifications.Users
         public UserWithOrdersWithBooksSpecification() : base()
         {
 
-            //AddInclude(x => x.Include(y => y.Order).ThenInclude(y => y.Books));
+            AddInclude(x => x.Include(y => y.Orders).ThenInclude(y => y.Books));
             
         }
     }

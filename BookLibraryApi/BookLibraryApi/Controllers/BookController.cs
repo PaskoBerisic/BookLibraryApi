@@ -22,7 +22,7 @@ namespace BookLibraryApi.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<BookModel>>> Get()
         {
             var books = await bookService.GetAll();
@@ -33,7 +33,7 @@ namespace BookLibraryApi.Controllers
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
         {
-            var specification = new BookWithAuthorsSpecification();
+            var specification = new BooksWithIncludesSpecification();
             var books = await bookService.GetAllWithSpec(specification);
             return Ok(mapper.Map<List<BookModel>>(books));
         }

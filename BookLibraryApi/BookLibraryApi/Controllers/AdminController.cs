@@ -8,6 +8,7 @@ using BookLibraryApi.Models.Genre;
 using BookLibraryApi.Models.Language;
 using BookLibraryApi.Models.Publisher;
 using BookLibraryApi.Models.User;
+using BookLibraryApi.Models.UserBasket;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace BookLibraryApi.Controllers
         private readonly IGenreService genreService;
         private readonly IPublisherService publisherService;
         private readonly IUserService userService;
+        private readonly IUserBasketService userBasketService;
         private readonly IMapper mapper;
         public AdminController(
             ICountryService countryService,
@@ -31,6 +33,7 @@ namespace BookLibraryApi.Controllers
             IGenreService genreService,
             IPublisherService publisherService,
             IUserService userService,
+            IUserBasketService userBasketService,
             IMapper mapper)
         {
             this.countryService = countryService;
@@ -39,18 +42,19 @@ namespace BookLibraryApi.Controllers
             this.publisherService = publisherService;
             this.userService = userService;
             this.mapper = mapper;
+            this.userBasketService = userBasketService;
         }
 
         #region Country
         
         //Country
-        [HttpGet("Country/All")]
+        [HttpGet("Countries")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetAllCountries()
         {
             var countries = await countryService.GetAll();
             return Ok(mapper.Map<List<CountryModel>>(countries));
         }
-        [HttpGet("Country/{id}")]
+        [HttpGet("Countries/{id}")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountryById(int id)
         {
             var countries = await countryService.GetAll();
@@ -68,7 +72,7 @@ namespace BookLibraryApi.Controllers
             //var countryModel = mapper.Map<CountryModel>(country);
             //return Ok(countryModel);
         }
-        [HttpPost("Country")]
+        [HttpPost("Countries")]
         public async Task<ActionResult<CountryModel>> AddCountry([FromBody] CountryPostModel countryPostModel)
         {
             var countries = mapper.Map<Country>(countryPostModel);
@@ -76,7 +80,7 @@ namespace BookLibraryApi.Controllers
 
             return CreatedAtAction(nameof(GetCountryById), new { countriesAdded.Id }, countriesAdded);
         }
-        [HttpPut("Country")]
+        [HttpPut("Countries")]
         public async Task<ActionResult<CountryModel>> UpdateCountry([FromBody] CountryPutModel countryPutModel)
         {
             var item = mapper.Map<Country>(countryPutModel);
@@ -84,7 +88,7 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetCountryById), new { item.Id }, item);
         }
 
-        [HttpDelete("Country/{id}")]
+        [HttpDelete("Countries/{id}")]
         public async Task<ActionResult<CountryModel>> DeleteCountryById(int id)
         {
             await countryService.DeleteById(id);
@@ -95,13 +99,13 @@ namespace BookLibraryApi.Controllers
         #region Genre
         
         //Genre
-        [HttpGet("Genre/All")]
+        [HttpGet("Genres")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetAllGenres()
         {
             var genres = await genreService.GetAll();
             return Ok(mapper.Map<List<GenreModel>>(genres));
         }
-        [HttpGet("Genre/{id}")]
+        [HttpGet("Genres/{id}")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetGenreById(int id)
         {
             var genres = await genreService.GetAll();
@@ -112,7 +116,7 @@ namespace BookLibraryApi.Controllers
             }
             return NotFound($"Genre with id {id} not found.");
         }
-        [HttpPost("Genre")]
+        [HttpPost("Genres")]
         public async Task<ActionResult<GenreModel>> AddGenre([FromBody] GenrePostModel genrePostModel)
         {
             var genres = mapper.Map<Genre>(genrePostModel);
@@ -120,7 +124,7 @@ namespace BookLibraryApi.Controllers
 
             return CreatedAtAction(nameof(GetGenreById), new { genresAdded.Id }, genresAdded);
         }
-        [HttpPut("Genre")]
+        [HttpPut("Genres")]
         public async Task<ActionResult<GenreModel>> UpdateGenre([FromBody] GenrePutModel genrePutModel)
         {
             var item = mapper.Map<Genre>(genrePutModel);
@@ -128,7 +132,7 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetGenreById), new { item.Id }, item);
         }
        
-        [HttpDelete("Genre/{id}")]
+        [HttpDelete("Genres/{id}")]
         public async Task<ActionResult<GenreModel>> DeleteGenreById(int id)
         {
             await genreService.DeleteById(id);
@@ -139,13 +143,13 @@ namespace BookLibraryApi.Controllers
         #region Language
         
         //Language
-        [HttpGet("Language/All")]
+        [HttpGet("Languages")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetAllLanguages()
         {
             var languages = await languageService.GetAll();
             return Ok(mapper.Map<List<LanguageModel>>(languages));
         }
-        [HttpGet("Language/{id}")]
+        [HttpGet("Languages/{id}")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetLanguageById(int id)
         {
             var languages = await languageService.GetAll();
@@ -156,7 +160,7 @@ namespace BookLibraryApi.Controllers
             }
             return NotFound($"Language with id {id} not found.");
         }
-        [HttpPost("Language")]
+        [HttpPost("Languages")]
         public async Task<ActionResult<LanguageModel>> AddLanguage([FromBody] LanguagePostModel languagePostModel)
         {
             var languages = mapper.Map<Language>(languagePostModel);
@@ -164,14 +168,14 @@ namespace BookLibraryApi.Controllers
 
             return CreatedAtAction(nameof(GetLanguageById), new { languagesAdded.Id }, languagesAdded);
         }
-        [HttpPut("Language")]
+        [HttpPut("Languages")]
         public async Task<ActionResult<LanguageModel>> UpdateLanguage([FromBody] LanguagePutModel languagePutModel)
         {
             var item = mapper.Map<Language>(languagePutModel);
             await languageService.Update(item);
             return CreatedAtAction(nameof(GetLanguageById), new { item.Id }, item);
         }
-        [HttpDelete("Language/{id}")]
+        [HttpDelete("Languages/{id}")]
         public async Task<ActionResult<LanguageModel>> DeleteLanguageById(int id)
         {
             await languageService.DeleteById(id);
@@ -182,13 +186,13 @@ namespace BookLibraryApi.Controllers
         #region Publisher
         
         //Publisher
-        [HttpGet("Publisher/All")]
+        [HttpGet("Publishers")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetAllPublishers()
         {
             var publishers = await publisherService.GetAll();
             return Ok(mapper.Map<List<PublisherModel>>(publishers));
         }
-        [HttpGet("Publisher/{id}")]
+        [HttpGet("Publishers/{id}")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetPublisherById(int id)
         {
             var publishers = await publisherService.GetAll();
@@ -199,7 +203,7 @@ namespace BookLibraryApi.Controllers
             }
             return NotFound($"Publisher with id {id} not found.");
         }
-        [HttpPost("Publisher")]
+        [HttpPost("Publishers")]
         public async Task<ActionResult<PublisherModel>> AddPublisher([FromBody] PublisherPostModel publisherPostModel)
         {
             var publisher = mapper.Map<Publisher>(publisherPostModel);
@@ -207,14 +211,14 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetPublisherById), new { publishersAdded.Id }, publishersAdded);
 
         }
-        [HttpPut("Publisher")]
+        [HttpPut("Publishers")]
         public async Task<ActionResult<PublisherModel>> UpdatePublisher([FromBody] PublisherPutModel publisherPutModel)
         {
             var item = mapper.Map<Publisher>(publisherPutModel);
             await publisherService.Update(item);
             return CreatedAtAction(nameof(GetPublisherById), new { item.Id }, item);
         }
-        [HttpDelete("Publisher/{id}")]
+        [HttpDelete("Publishers/{id}")]
         public async Task<ActionResult<PublisherModel>> DeletePublisherById(int id)
         {
             await publisherService.DeleteById(id);
@@ -223,15 +227,15 @@ namespace BookLibraryApi.Controllers
         #endregion
 
         #region User
-        
+
         //User
-        [HttpGet("User/All")]
+        [HttpGet("Users")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
         {
             var users = await userService.GetAll();
             return Ok(mapper.Map<List<UserModel>>(users));
         }
-        [HttpGet("User/{id}")]
+        [HttpGet("Users/{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUserById(int id)
         {
             var users = await userService.GetAll();
@@ -242,25 +246,67 @@ namespace BookLibraryApi.Controllers
             }
             return NotFound($"User with id {id} not found.");
         }
-        [HttpPost("User")]
+        [HttpPost("Users")]
         public async Task<ActionResult<UserModel>> AddUser([FromBody] UserPostModel userPostModel)
         {
             var user = mapper.Map<User>(userPostModel);
             var userAdded = await userService.Add(user);
             return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
         }
-        [HttpPut("User")]
+        [HttpPut("Users")]
         public async Task<ActionResult<UserModel>> UpdateUser([FromBody] UserPutModel userPutModel)
         {
             var item = mapper.Map<User>(userPutModel);
             await userService.Update(item);
             return CreatedAtAction(nameof(GetUserById), new { item.Id }, item);
         }
-        [HttpDelete("User/{id}")]
+        [HttpDelete("Users/{id}")]
         public async Task<ActionResult<UserModel>> DeleteUserById(int id)
         {
             await userService.DeleteById(id);
             return Ok($"User with id {id} deleted");
+        }
+        #endregion
+
+        #region UserBasket
+
+        //UserBasket
+        [HttpGet("UserBaskets")]
+        public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetAllUserBaskets()
+        {
+            var userBaskets = await userBasketService.GetAll();
+            return Ok(mapper.Map<List<UserBasketModel>>(userBaskets));
+        }
+        [HttpGet("UserBaskets/{id}")]
+        public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetUserBasketById(int id)
+        {
+            var userBaskets = await userBasketService.GetAll();
+            foreach (var userBasket in userBaskets)
+            {
+                if (userBasket.Id == id)
+                    return Ok(mapper.Map<UserBasketModel>(userBasket));
+            }
+            return NotFound($"UserBasket with id {id} not found.");
+        }
+        [HttpPost("UserBaskets")]
+        public async Task<ActionResult<UserBasketModel>> AddUserBasket([FromBody] UserBasketPostModel userBasketPostModel)
+        {
+            var userBasket = mapper.Map<UserBasket>(userBasketPostModel);
+            var userBasketAdded = await userBasketService.Add(userBasket);
+            return CreatedAtAction(nameof(GetUserBasketById), new { userBasketAdded.Id }, userBasketAdded);
+        }
+        [HttpPut("UserBaskets")]
+        public async Task<ActionResult<UserBasketModel>> UpdateUserBasket([FromBody] UserBasketPutModel userBasketPutModel)
+        {
+            var item = mapper.Map<UserBasket>(userBasketPutModel);
+            await userBasketService.Update(item);
+            return CreatedAtAction(nameof(GetUserBasketById), new { item.Id }, item);
+        }
+        [HttpDelete("UserBaskets/{id}")]
+        public async Task<ActionResult<UserBasketModel>> DeleteUserBasketById(int id)
+        {
+            await userBasketService.DeleteById(id);
+            return Ok($"UserBasket with id {id} deleted");
         }
         #endregion
 

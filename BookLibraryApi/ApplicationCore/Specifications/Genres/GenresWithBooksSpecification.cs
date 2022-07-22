@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ApplicationCore.Specifications.Genres
     {
         public GenresWithBooksSpecification() : base()
         {
-            AddInclude(x => x.Books);
+            AddInclude(x => x.Include(x => x.Books));
         }
     }
 }
