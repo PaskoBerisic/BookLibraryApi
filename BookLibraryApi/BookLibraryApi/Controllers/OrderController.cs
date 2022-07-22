@@ -21,7 +21,7 @@ namespace BookLibraryApi.Controllers
             this.mapper = mapper;
         }
 
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderModel>>> Get()
         {
             var orders = await orderService.GetAll();
@@ -54,16 +54,15 @@ namespace BookLibraryApi.Controllers
 
         [HttpPost]
         public async Task<ActionResult<OrderModel>> Add([FromBody] OrderPostModel orderPostModel)
-        {
+            {
             var order = mapper.Map<Order>(orderPostModel);
             var orderAdded = await orderService.Add(order);
-
             return CreatedAtAction(nameof(GetById), new { orderAdded.Id }, orderAdded);
         }
 
         [HttpPut]
         public async Task<ActionResult<OrderModel>> Update([FromBody] OrderPutModel orderPutModel)
-            {
+        {
             var item = mapper.Map<Order>(orderPutModel);
             await orderService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);

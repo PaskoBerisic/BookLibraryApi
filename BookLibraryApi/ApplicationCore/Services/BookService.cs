@@ -61,8 +61,8 @@ namespace ApplicationCore.Services
         }
         public async Task<Book> Add(Book book)
         {
-            await GetAuthors(book);
-            await GetGenres(book);
+            //await GetAuthors(book);
+            //await GetGenres(book);
             return await bookRepository.AddAsync(book);
         }
 

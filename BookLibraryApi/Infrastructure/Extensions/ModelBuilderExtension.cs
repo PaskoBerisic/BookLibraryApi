@@ -520,21 +520,24 @@ namespace Infrastructure.Extensions
                 new UserBasket
                 {
                     Id = 1,
-                    UserId = 1,
+                    UserId = 3,
+                    Currency = "EUR",
                     TotalRentalPrice = 1.20M,
                     TotalRentalPriceWithVAT = 1.50M
                 },
                 new UserBasket
                 {
                     Id = 2,
-                    UserId = 1,
+                    UserId = 2,
+                    Currency = "USD",
                     TotalRentalPrice = 1.0M,
                     TotalRentalPriceWithVAT = 1.25M
                 },
                 new UserBasket
                 {
                     Id = 3,
-                    UserId = 2,
+                    UserId = 1,
+                    Currency = "GBP",
                     TotalRentalPrice = 1.60M,
                     TotalRentalPriceWithVAT = 2.0M
                 }
