@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Countries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +18,14 @@ namespace ApplicationCore.Services
         {
             this.countryRepository = countryRepository;
         }
-
-        public async Task<IEnumerable<Country>> GetAll()
+        public async Task<IEnumerable<Country>> GetAllWith()
         {
             return await countryRepository.GetAllWithIncludesAsync(new List<Expression<Func<Country, object>>>() { /* No use - FIND USE */});
         }
 
-        public async Task<IEnumerable<Country>> GetAllWith(ISpecification<Country> specification)
+        public async Task<IEnumerable<Country>> GetAllWithSpec()
         {
-            var countrys = await countryRepository.GetAllWithSpecAsync(specification);
-            return countrys;
-        }
-
-        public async Task<IEnumerable<Country>> GetAllWithSpec(ISpecification<Country> specification)
-        {
+            var specification = new CountriesWithIncludesSpecification();
             return await countryRepository.GetAllWithSpecAsync(specification);
         }
 
@@ -55,6 +50,5 @@ namespace ApplicationCore.Services
         {
             await countryRepository.DeleteByIdAsync(id);
         }
-
     }
 }

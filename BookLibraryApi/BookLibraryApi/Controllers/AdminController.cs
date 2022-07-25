@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Users;
 using AutoMapper;
 using BookLibraryApi.Models;
 using BookLibraryApi.Models.Country;
@@ -51,13 +52,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Countries")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetAllCountries()
         {
-            var countries = await countryService.GetAll();
+            var countries = await countryService.GetAllWithSpec();
             return Ok(mapper.Map<List<CountryModel>>(countries));
         }
         [HttpGet("Countries/{id}")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountryById(int id)
         {
-            var countries = await countryService.GetAll();
+            var countries = await countryService.GetAllWith();
             foreach(var country1 in countries)
             {
                 if(country1.Id == id)
@@ -102,13 +103,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Genres")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetAllGenres()
         {
-            var genres = await genreService.GetAll();
+            var genres = await genreService.GetAllWithSpec();
             return Ok(mapper.Map<List<GenreModel>>(genres));
         }
         [HttpGet("Genres/{id}")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetGenreById(int id)
         {
-            var genres = await genreService.GetAll();
+            var genres = await genreService.GetAllWith();
             foreach (var genre in genres)
             {
                 if (genre.Id == id)
@@ -146,13 +147,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Languages")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetAllLanguages()
         {
-            var languages = await languageService.GetAll();
+            var languages = await languageService.GetAllWithSpec();
             return Ok(mapper.Map<List<LanguageModel>>(languages));
         }
         [HttpGet("Languages/{id}")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetLanguageById(int id)
         {
-            var languages = await languageService.GetAll();
+            var languages = await languageService.GetAllWith();
             foreach (var language in languages)
             {
                 if (language.Id == id)
@@ -189,13 +190,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Publishers")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetAllPublishers()
         {
-            var publishers = await publisherService.GetAll();
+            var publishers = await publisherService.GetAllWithSpec();
             return Ok(mapper.Map<List<PublisherModel>>(publishers));
         }
         [HttpGet("Publishers/{id}")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetPublisherById(int id)
         {
-            var publishers = await publisherService.GetAll();
+            var publishers = await publisherService.GetAllWith();
             foreach (var publisher in publishers)
             {
                 if (publisher.Id == id)
@@ -232,13 +233,14 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Users")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
         {
-            var users = await userService.GetAll();
+            var specification = new UserWithOrdersWithBooksSpecification();
+            var users = await userService.GetAllWithSpec(specification);
             return Ok(mapper.Map<List<UserModel>>(users));
         }
         [HttpGet("Users/{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUserById(int id)
         {
-            var users = await userService.GetAll();
+            var users = await userService.GetAllWith();
             foreach (var user in users)
             {
                 if (user.Id == id)
@@ -274,13 +276,13 @@ namespace BookLibraryApi.Controllers
         [HttpGet("UserBaskets")]
         public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetAllUserBaskets()
         {
-            var userBaskets = await userBasketService.GetAll();
+            var userBaskets = await userBasketService.GetAllWithSpec();
             return Ok(mapper.Map<List<UserBasketModel>>(userBaskets));
         }
         [HttpGet("UserBaskets/{id}")]
         public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetUserBasketById(int id)
         {
-            var userBaskets = await userBasketService.GetAll();
+            var userBaskets = await userBasketService.GetAllWith();
             foreach (var userBasket in userBaskets)
             {
                 if (userBasket.Id == id)

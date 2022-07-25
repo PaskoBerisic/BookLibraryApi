@@ -10,6 +10,8 @@ namespace ApplicationCore.Specifications.Books
             AddInclude(x => x.Include(x => x.Authors));
             AddInclude(x => x.Include(x => x.Genres));
             AddInclude(x => x.Include(x => x.Orders));
+            AddInclude(x => x.Include(x => x.Publisher));
+            AddInclude(x => x.Include(x => x.Language));
 
         }
     }

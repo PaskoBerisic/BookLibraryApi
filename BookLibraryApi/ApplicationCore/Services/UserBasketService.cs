@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
+using ApplicationCore.Specifications.UserBaskets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,23 +24,20 @@ namespace ApplicationCore.Services
         public async Task GetBooks(UserBasket userBasket)
         {
             var specification = new BooksForSpecification(userBasket.Books.Select(x => x.Id).ToList());
-            var basketBooks = (await bookService.GetAllWithSpec(specification)).ToList();
+            var basketBooks = (await bookService.FindWithSpecificationPattern(specification)).ToList();
             basketBooks.AddRange(userBasket.Books.Where(x => !basketBooks.Select(x => x.Id).Contains(x.Id)));
             userBasket.Books = basketBooks;
         }
-        public async Task<IEnumerable<UserBasket>> GetAll()
+
+        public async Task<IEnumerable<UserBasket>> GetAllWith()
         {
             return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books, x => x.User });
         }
 
-        public async Task<IEnumerable<UserBasket>> GetAllWith(ISpecification<UserBasket> specification)
+        public async Task<IEnumerable<UserBasket>> GetAllWithSpec()
         {
-            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books, x => x.User });
-        }
-
-        public async Task<IEnumerable<UserBasket>> GetAllWithSpec(ISpecification<UserBasket> specification)
-        {
-            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books, x => x.User });
+            var specification = new UserBasketsWithSpecificationIncludes();
+            return await userBasketRepository.GetAllWithSpecAsync(specification);
         }
 
         public async Task<UserBasket> GetById(int id)
@@ -51,7 +49,6 @@ namespace ApplicationCore.Services
             await GetBooks(userBasket);
             return await userBasketRepository.AddAsync(userBasket);
         }
-
         public async  Task Update(UserBasket userBasket)
         {
             await GetBooks(userBasket);
@@ -61,12 +58,10 @@ namespace ApplicationCore.Services
         {
             await userBasketRepository.DeleteAsync(userBasket);
         }
-
         public async Task DeleteById(int id)
         {
             await userBasketRepository.DeleteByIdAsync(id);
         }
-
     }
 
 }

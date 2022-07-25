@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.NewFolder;
+using ApplicationCore.Specifications.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,28 +15,29 @@ namespace ApplicationCore.Services
     public class UserService : IUserService
     {
         private readonly IRepository<User> userRepository;
-        private readonly IOrderService orderService;
+        private readonly IRepository<Order> orderRepository;
 
-        public UserService(IRepository<User> userRepository, IOrderService orderService)
+        public UserService(IRepository<User> userRepository, IRepository<Order> orderRepository)
         {
             this.userRepository = userRepository;
-            this.orderService = orderService;
+            this.orderRepository = orderRepository;
         }
         public async Task GetOrders(User user)
         {
             var specification = new OrdersForSpecification(user.Orders.Select(x => x.Id).ToList());
-            var userOrders = (await orderService.GetAllWithSpec(specification)).ToList();
+            var userOrders = (await orderRepository.FindWithSpecificationPattern(specification)).ToList();
             userOrders.AddRange(user.Orders.Where(x => !userOrders.Select(x => x.Id).Contains(x.Id)));
             user.Orders = userOrders;
         }
-        public async Task<IEnumerable<User>> GetAll()
-        {
-            return await userRepository.GetAllWithIncludesAsync(new List<Expression<Func<User, object>>>() { x => x.Orders });
-        }
+        //public async Task<IEnumerable<User>> GetAll()
+        //{
+        //    var specification = new UserWithOrdersWithBooksSpecification();
+        //    return await userRepository.GetAllWithSpecAsync(specification);
+        //}
 
-        public async Task<IEnumerable<User>> GetAllWith(ISpecification<User> specification)
+        public async Task<IEnumerable<User>> GetAllWith()
         {
-            var users = await userRepository.GetAllWithSpecAsync(specification);
+            var users = await userRepository.GetAllWithIncludesAsync(new List<Expression<Func<User, object>>>() { x => x.Orders });
             return users;
         }
 
@@ -53,7 +55,6 @@ namespace ApplicationCore.Services
             await GetOrders(user);
             return await userRepository.AddAsync(user);
         }
-
         public async Task Update(User user)
         {
             await GetOrders(user);
@@ -63,7 +64,6 @@ namespace ApplicationCore.Services
         {
             await userRepository.DeleteAsync(user);
         }
-
         public async Task DeleteById(int id)
         {
             await userRepository.DeleteByIdAsync(id);

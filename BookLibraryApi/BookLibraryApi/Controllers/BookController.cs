@@ -23,9 +23,9 @@ namespace BookLibraryApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookModel>>> Get()
+        public async Task<ActionResult<IEnumerable<BookModel>>> GetAllBooks()
         {
-            var books = await bookService.GetAll();
+            var books = await bookService.GetAllWithSpec();
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
@@ -34,7 +34,7 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
         {
             var specification = new BooksWithIncludesSpecification();
-            var books = await bookService.GetAllWithSpec(specification);
+            var books = await bookService.FindWithSpecificationPattern(specification);
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
@@ -55,7 +55,7 @@ namespace BookLibraryApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetById(int id)
         {
-            var books = await bookService.GetAll();
+            var books = await bookService.GetAllWith();
             foreach (var book in books)
             {
                 if (book.Id == id)

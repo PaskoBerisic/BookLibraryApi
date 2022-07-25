@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
+using ApplicationCore.Specifications.Publishers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,32 +15,28 @@ namespace ApplicationCore.Services
     public class PublisherService : IPublisherService
     {
         private readonly IRepository<Publisher> publisherRepository;
-        private readonly IBookService bookService;
-        public PublisherService(IRepository<Publisher> publisherRepository, IBookService bookService)
+        private readonly IRepository<Book> bookRepository;
+        public PublisherService(IRepository<Publisher> publisherRepository, IRepository<Book> bookRepository)
         {
             this.publisherRepository = publisherRepository;
-            this.bookService = bookService;
+            this.bookRepository = bookRepository;
         }
         public async Task GetBooks(Publisher publisher)
         {
             var specification = new BooksForSpecification(publisher.Books.Select(x => x.Id).ToList());
-            var publisherBooks = (await bookService.GetAllWithSpec(specification)).ToList();
+            var publisherBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
             publisherBooks.AddRange(publisher.Books.Where(x => !publisherBooks.Select(x => x.Id).Contains(x.Id)));
             publisher.Books = publisherBooks;
         }
-        public async Task<IEnumerable<Publisher>> GetAll()
+        public async Task<IEnumerable<Publisher>> GetAllWith()
         {
-            return await publisherRepository.GetAllWithIncludesAsync(new List<Expression<Func<Publisher, object>>>() { x => x.Books });
-        }
-
-        public async Task<IEnumerable<Publisher>> GetAllWith(ISpecification<Publisher> specification)
-        {
-            var publishers = await publisherRepository.GetAllWithSpecAsync(specification);
+            var publishers = await publisherRepository.GetAllWithIncludesAsync(new List<Expression<Func<Publisher, object>>>() { x => x.Books });
             return publishers;
         }
 
-        public async Task<IEnumerable<Publisher>> GetAllWithSpec(ISpecification<Publisher> specification)
+        public async Task<IEnumerable<Publisher>> GetAllWithSpec()
         {
+            var specification = new PublishersWithIncludesSpecification();
             return await publisherRepository.GetAllWithSpecAsync(specification);
         }
 

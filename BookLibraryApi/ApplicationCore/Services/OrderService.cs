@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
+using ApplicationCore.Specifications.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace ApplicationCore.Services
     public class OrderService : IOrderService
     {
         private readonly IRepository<Order> orderRepository;
-        private readonly IBookService bookService;
-        public OrderService(IRepository<Order> orderRepository, IBookService bookService)
+        private readonly IBookService2 bookService;
+        public OrderService(IRepository<Order> orderRepository, IBookService2 bookService)
         {
             this.orderRepository = orderRepository;
             this.bookService = bookService;
@@ -27,19 +28,15 @@ namespace ApplicationCore.Services
             orderBooks.AddRange(order.Books.Where(x => !orderBooks.Select(x => x.Id).Contains(x.Id)));
             order.Books = orderBooks;
         }
-        public async Task<IEnumerable<Order>> GetAll()
+
+        public async Task<IEnumerable<Order>> GetAllWith()
         {
-            return await orderRepository.GetAllWithIncludesAsync(new List<Expression<Func<Order, object>>>() { x => x.User, x=> x.Books });
+           return await orderRepository.GetAllWithIncludesAsync(new List<Expression<Func<Order, object>>>() { x => x.User, x => x.Books });
         }
 
-        public async Task<IEnumerable<Order>> GetAllWith(ISpecification<Order> specification)
+        public async Task<IEnumerable<Order>> GetAllWithSpec()
         {
-            var orders = await orderRepository.GetAllWithSpecAsync(specification);
-            return orders;
-        }
-
-        public async Task<IEnumerable<Order>> GetAllWithSpec(ISpecification<Order> specification)
-        {
+            var specification = new OrdersWithIncludesSpecification();
             return await orderRepository.GetAllWithSpecAsync(specification);
         }
 

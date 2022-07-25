@@ -1,5 +1,6 @@
 ﻿using BookLibraryApi.Models.Genre;
 using BookLibraryApi.Models.Language;
+using BookLibraryApi.Models.Order;
 using BookLibraryApi.Models.Publisher;
 
 namespace BookLibraryApi.Models.Book
@@ -16,8 +17,9 @@ namespace BookLibraryApi.Models.Book
         public int PublisherId { get; set; }
         public int LanguageId { get; set; }
         // Many to Many
-        public ICollection<AuthorModel>? Authors { get; set; }
+        public ICollection<AuthorModelShort>? Authors { get; set; }
         public ICollection<GenreModelShort>? Genres { get; set; }
+        public ICollection<OrderModelShort>? Orders { get; set; }
 
     }
 }

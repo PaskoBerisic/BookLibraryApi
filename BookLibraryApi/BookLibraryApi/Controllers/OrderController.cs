@@ -24,19 +24,19 @@ namespace BookLibraryApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderModel>>> Get()
         {
-            var orders = await orderService.GetAll();
+            var orders = await orderService.GetAllWith();
             return Ok(mapper.Map<List<OrderModel>>(orders));
         }
         [HttpGet("allWith")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetAllWith()
         {
-            var orders = await orderService.GetAll();
+            var orders = await orderService.GetAllWithSpec();
             return Ok(mapper.Map<List<OrderModel>>(orders));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<OrderModel>>> GetById(int id)
         {
-            var orders = await orderService.GetAll();
+            var orders = await orderService.GetAllWith();
             foreach (var order in orders)
             {
                 if (order.Id == id)
