@@ -22,16 +22,16 @@ namespace BookLibraryApi.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuthorModel>>> Get()
+        public async Task<ActionResult<IEnumerable<AuthorModel>>> GetAllAuthors()
         {
-            var authors = await authorService.GetAll();
+            var authors = await authorService.GetAllWithSpec();
             return Ok(mapper.Map<List<AuthorModel>>(authors));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> GetById(int id)
         {
-            var authors = await authorService.GetAll();
+            var authors = await authorService.GetAllWith();
             foreach (var author in authors)
             {
                 if (author.Id == id)

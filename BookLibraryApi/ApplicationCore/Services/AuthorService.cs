@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Authors;
 using ApplicationCore.Specifications.Books;
 using System;
 using System.Collections.Generic;
@@ -14,34 +15,29 @@ namespace ApplicationCore.Services
     public class AuthorService : IAuthorService
     {
         private readonly IRepository<Author> authorRepository;
-        private readonly IBookService2 bookService;
-        public AuthorService(IRepository<Author> authorRepository, IBookService2 bookService)
+        private readonly IRepository<Book> bookRepository;
+        public AuthorService(IRepository<Author> authorRepository, IRepository<Book> bookRepository)
         {
             this.authorRepository = authorRepository;
-            this.bookService = bookService;
+            this.bookRepository = bookRepository;
         }
 
         public async Task GetBooks(Author author)
         {
             var specification = new BooksForSpecification(author.Books.Select(x => x.Id).ToList());
-            var authorBooks = (await bookService.GetAllWithSpec(specification)).ToList();
+            var authorBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
             authorBooks.AddRange(author.Books.Where(x => !authorBooks.Select(x => x.Id).Contains(x.Id)));
             author.Books = authorBooks;
         }
-
-        public async Task<IEnumerable<Author>> GetAll()
+        public async Task<IEnumerable<Author>> GetAllWith()
         {
-            return await authorRepository.GetAllWithIncludesAsync(new List<Expression<Func<Author, object>>>() { x => x.Books, y => y.Country });
-        }
-
-        public async Task<IEnumerable<Author>> GetAllWith(ISpecification<Author> specification)
-        {
-            var authors = await authorRepository.GetAllWithSpecAsync(specification);
+            var authors = await authorRepository.GetAllWithIncludesAsync(new List<Expression<Func<Author, object>>>() { x => x.Books, y => y.Country });
             return authors;
         }
 
-        public async Task<IEnumerable<Author>> GetAllWithSpec(ISpecification<Author> specification)
+        public async Task<IEnumerable<Author>> GetAllWithSpec()
         {
+            var specification = new AuthorsWithBooksAndCountriesSpec();
             return await authorRepository.GetAllWithSpecAsync(specification);
         }
 
@@ -54,7 +50,6 @@ namespace ApplicationCore.Services
             await GetBooks(author);
             return await authorRepository.AddAsync(author);
         }
-
         public async Task Update(Author author)
         {
             await GetBooks(author);
@@ -67,6 +62,10 @@ namespace ApplicationCore.Services
         public async Task DeleteById(int id)
         {
             await authorRepository.DeleteByIdAsync(id);
+        }
+        public async Task<IEnumerable<Author>> FindWithSpecificationPattern(ISpecification<Author> specification)
+        {
+            return await authorRepository.FindWithSpecificationPattern(specification);
         }
     }
 }

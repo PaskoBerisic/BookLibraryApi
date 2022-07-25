@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
+using ApplicationCore.Specifications.Languages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,33 +15,29 @@ namespace ApplicationCore.Services
     public class LanguageService : ILanguageService
     {
         private readonly IRepository<Language> languageRepository;
-        private readonly IBookService bookService;
-        public LanguageService(IRepository<Language> languageRepository, IBookService bookService)
+        private readonly IRepository<Book> bookRepository;
+        public LanguageService(IRepository<Language> languageRepository, IRepository<Book> bookRepository)
         {
           this.languageRepository = languageRepository;
-            this.bookService = bookService;
+          this.bookRepository = bookRepository;
         }
 
         public async Task GetBooks(Language language)
         {
             var specification = new BooksForSpecification(language.Books.Select(x => x.Id).ToList());
-            var languageBooks = (await bookService.GetAllWithSpec(specification)).ToList();
+            var languageBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
             languageBooks.AddRange(language.Books.Where(x => !languageBooks.Select(x => x.Id).Contains(x.Id)));
             language.Books = languageBooks;
         }
-        public async Task<IEnumerable<Language>> GetAll()
+        public async Task<IEnumerable<Language>> GetAllWith()
         {
-            return await languageRepository.GetAllWithIncludesAsync(new List<Expression<Func<Language, object>>>() { x => x.Books });
-        }
-
-        public async Task<IEnumerable<Language>> GetAllWith(ISpecification<Language> specification)
-        {
-            var languages = await languageRepository.GetAllWithSpecAsync(specification);
+            var languages = await languageRepository.GetAllWithIncludesAsync(new List<Expression<Func<Language, object>>>() { x => x.Books });
             return languages;
         }
 
-        public async Task<IEnumerable<Language>> GetAllWithSpec(ISpecification<Language> specification)
+        public async Task<IEnumerable<Language>> GetAllWithSpec()
         {
+            var specification = new LanguagesWithBooksSpecification();
             return await languageRepository.GetAllWithSpecAsync(specification);
         }
 

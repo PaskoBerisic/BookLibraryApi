@@ -13,6 +13,5 @@ namespace ApplicationCore.Entities
         public DateTime Updated { get; set; }
         // Many to Many
         public ICollection<Book>? Books { get; set; }
-
     }
 }
