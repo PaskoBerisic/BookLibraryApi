@@ -54,7 +54,7 @@ namespace BookLibraryApi.Controllers
 
         [HttpPost]
         public async Task<ActionResult<OrderModel>> Add([FromBody] OrderPostModel orderPostModel)
-            {
+        {
             var order = mapper.Map<Order>(orderPostModel);
             var orderAdded = await orderService.Add(order);
             return CreatedAtAction(nameof(GetById), new { orderAdded.Id }, orderAdded);

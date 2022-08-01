@@ -8,6 +8,7 @@ namespace ApplicationCore.Specifications.Users
         public UserWithOrdersWithBooksSpecification() : base()
         {
             AddInclude(x => x.Include(y => y.Orders).ThenInclude(z => z.Books));
+            AddInclude(x => x.Include(x => x.UserBasket).ThenInclude(z => z.Books));
         }
     }
 }

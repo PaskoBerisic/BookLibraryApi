@@ -470,12 +470,15 @@ namespace Infrastructure.Extensions
                     Id = 1,
                     FirstName = "Name 1",
                     LastName = "Surname 1",
-                    Username = "User1",
-                    Password = "123456",
+                    Username = "Admin",
+                    PasswordCrypted = BCrypt.Net.BCrypt.HashPassword("admin"),
+                    //PasswordCrypted = "admin",
+                    Email = "username1@gmail.com",
                     IsActive = true,
                     DateOfBirth = new DateTime(1999, 1, 1),
                     Address = "Adresa 1",
                     Role = Role.Admin,
+                    UserBasketId = 1,
                     CreatedBy = 1,
                     Created = DateTime.UtcNow,
                     UpdatedBy = 1,
@@ -487,11 +490,14 @@ namespace Infrastructure.Extensions
                     FirstName = "Name 2",
                     LastName = "Surname 2",
                     Username = "User2",
-                    Password = "123456",
+                    PasswordCrypted = BCrypt.Net.BCrypt.HashPassword("user"),
+                    //PasswordCrypted = "123456",
+                    Email = "test@gmail.com",
                     IsActive = true,
                     DateOfBirth = new DateTime(1999, 1, 1),
                     Address = "Adresa 2",
-                    Role = Role.Admin,
+                    Role = Role.User,
+                    UserBasketId = 2,
                     CreatedBy = 1,
                     Created = DateTime.UtcNow,
                     UpdatedBy = 1,
@@ -503,11 +509,14 @@ namespace Infrastructure.Extensions
                     FirstName = "Name 3",
                     LastName = "Surname 3",
                     Username = "User3",
-                    Password = "123456",
+                    PasswordCrypted = BCrypt.Net.BCrypt.HashPassword("user"),
+                    //PasswordCrypted = "123456",
+                    Email = "test2@gmail.com",
                     IsActive = true,
                     DateOfBirth = new DateTime(1999, 1, 1),
                     Address = "Adresa 2",
-                    Role = Role.Admin,
+                    Role = Role.User,
+                    UserBasketId = 3,
                     CreatedBy = 1,
                     Created = DateTime.UtcNow,
                     UpdatedBy = 1,
@@ -520,7 +529,6 @@ namespace Infrastructure.Extensions
                 new UserBasket
                 {
                     Id = 1,
-                    UserId = 3,
                     Currency = "EUR",
                     TotalRentalPrice = 1.20M,
                     TotalRentalPriceWithVAT = 1.50M
@@ -528,7 +536,6 @@ namespace Infrastructure.Extensions
                 new UserBasket
                 {
                     Id = 2,
-                    UserId = 2,
                     Currency = "USD",
                     TotalRentalPrice = 1.0M,
                     TotalRentalPriceWithVAT = 1.25M
@@ -536,13 +543,40 @@ namespace Infrastructure.Extensions
                 new UserBasket
                 {
                     Id = 3,
-                    UserId = 1,
                     Currency = "GBP",
                     TotalRentalPrice = 1.60M,
                     TotalRentalPriceWithVAT = 2.0M
                 }
                 );
             //UserBasket
+
+            //UserBasket With Many Books
+            modelBuilder.Entity<UserBasket>()
+                .HasMany(x => x.Books)
+                .WithMany(x => x.UserBaskets)
+                .UsingEntity(x => x.HasData(
+                    new
+                    {
+                        BooksId = 1,
+                        UserBasketsId = 1
+                    },
+                    new
+                    {
+                        BooksId = 2,
+                        UserBasketsId = 1
+                    },
+                    new
+                    {
+                        BooksId = 3,
+                        UserBasketsId = 2
+                    },
+                    new
+                    {
+                        BooksId = 4,
+                        UserBasketsId = 3
+                    }
+                    ));
+            //Order
         }
 
     }

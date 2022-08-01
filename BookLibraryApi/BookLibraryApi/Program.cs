@@ -1,7 +1,10 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Services;
+using BookLibraryApi.TokenCheckMiddleware;
 using Infrastructure.Data;
+using Infrastructure.Options;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -17,6 +20,9 @@ builder.Services.AddCors(options => {
     .AllowAnyMethod()
     .Build());
 });
+
+ConfigurationManager Configuration = builder.Configuration;
+
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +46,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddDbContext<BookLibraryContext>();
 builder.Services.AddScoped<BookLibraryContext>();
 
+// JWT
+builder.Services.AddScoped<IUserServiceJWT, UserServiceJWT>();
+builder.Services.Configure<AuthSettingsJWT>(Configuration.GetSection("AuthSettings"));
+builder.Services.AddScoped<ITokenServiceJWT, TokenServiceJWT>();
+builder.Services.AddScoped<TokenCheckMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,10 +60,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<TokenCheckMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowMyOrigin");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

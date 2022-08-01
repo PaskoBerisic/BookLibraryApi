@@ -27,5 +27,7 @@ namespace ApplicationCore.Entities
         public ICollection<Author>? Authors { get; set; }
         public ICollection<Genre>? Genres { get; set; }
         public ICollection<Order>? Orders { get; set; }
+        public ICollection<UserBasket>? UserBaskets{ get; set; }
+
     }
 }
