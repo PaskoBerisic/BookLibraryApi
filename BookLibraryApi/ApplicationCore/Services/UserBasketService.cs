@@ -31,12 +31,12 @@ namespace ApplicationCore.Services
 
         public async Task<IEnumerable<UserBasket>> GetAllWith()
         {
-            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books, x => x.User });
+            return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books });
         }
 
         public async Task<IEnumerable<UserBasket>> GetAllWithSpec()
         {
-            var specification = new UserBasketsWithSpecificationIncludes();
+            var specification = new UserBasketsWithIncludesSpecification();
             return await userBasketRepository.GetAllWithSpecAsync(specification);
         }
 

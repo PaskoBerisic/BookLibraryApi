@@ -11,6 +11,8 @@ namespace ApplicationCore.Entities
         public string? LastName { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
+        public string? PasswordCrypted { get; set; }
+        public string? Email { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string? Address { get; set; }
@@ -19,6 +21,8 @@ namespace ApplicationCore.Entities
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
+        public int UserBasketId { get; set; }
+        public UserBasket? UserBasket { get; set; }
         // Many to Many
         public ICollection<Order>? Orders { get; set; }
 

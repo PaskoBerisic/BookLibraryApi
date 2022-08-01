@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications.UserBaskets
 {
-    public class UserBasketsWithSpecificationIncludes : BaseSpecification<UserBasket>
+    public class UserBasketsWithIncludesSpecification : BaseSpecification<UserBasket>
     {
-        public UserBasketsWithSpecificationIncludes() : base()
-        {
-            AddInclude(x => x.Include(x => x.User)); 
+        public UserBasketsWithIncludesSpecification() : base()
+        { 
             AddInclude(x => x.Include(x => x.Books));
         }
     }
