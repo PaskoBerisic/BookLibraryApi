@@ -10,6 +10,5 @@ namespace ApplicationCore.Interfaces.Entity
         Task Update(Author author, ICollection<int> id);
         Task DeleteById(int id);
         Task<IEnumerable<Author>> FindWithSpecification(ISpecification<Author> specification = null);
-
     }
 }

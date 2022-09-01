@@ -10,6 +10,6 @@ namespace ApplicationCore.Interfaces.Entity
         Task Update(Book book, ICollection<int> authorId, ICollection<int> genreId);
         Task Delete(Book book);
         Task DeleteById(int id);
-        Task<IEnumerable<Book>> FindWithSpecificationPattern(ISpecification<Book> specification = null);
+        Task<IEnumerable<Book>> FindWithSpecification(ISpecification<Book> specification = null);
     }
 }

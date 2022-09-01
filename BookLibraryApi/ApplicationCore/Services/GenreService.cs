@@ -25,7 +25,7 @@ namespace ApplicationCore.Services
         public async Task GetBooks(Genre genre)
         {
             var specification = new BooksForSpecification(genre.Books.Select(x => x.Id).ToList());
-            var authorBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
+            var authorBooks = (await bookRepository.FindWithSpecificationAsync(specification)).ToList();
             authorBooks.AddRange(genre.Books.Where(x => !authorBooks.Select(x => x.Id).Contains(x.Id)));
             genre.Books = authorBooks;
         }

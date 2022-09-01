@@ -1,9 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
-using ApplicationCore.Specifications.Orders;
 using ApplicationCore.Specifications.Users;
-using System.Linq.Expressions;
 
 namespace ApplicationCore.Services
 {
@@ -11,40 +9,27 @@ namespace ApplicationCore.Services
     {
         private readonly IRepository<User> userRepository;
         private readonly IRepository<Order> orderRepository;
+        private readonly IRepository<UserBasket> userBasketRepository;
 
-        public UserService(IRepository<User> userRepository, IRepository<Order> orderRepository)
+        public UserService(IRepository<User> userRepository, IRepository<Order> orderRepository, IRepository<UserBasket> userBasketRepository)
         {
             this.userRepository = userRepository;
             this.orderRepository = orderRepository;
-        }
-        public async Task GetOrders(User user)
-        {
-            var specification = new OrdersForSpecification(user.Orders.Select(x => x.Id).ToList());
-            var userOrders = (await orderRepository.FindWithSpecificationPattern(specification)).ToList();
-            userOrders.AddRange(user.Orders.Where(x => !userOrders.Select(x => x.Id).Contains(x.Id)));
-            user.Orders = userOrders;
-        }
-        //public async Task<IEnumerable<User>> GetAll()
-        //{
-        //    var specification = new UserWithOrdersWithBooksSpecification();
-        //    return await userRepository.GetAllWithSpecAsync(specification);
-        //}
-
-        public async Task<IEnumerable<User>> GetAllWith()
-        {
-            var users = await userRepository.GetAllWithIncludesAsync(new List<Expression<Func<User, object>>>() { x => x.Orders, y=> y.UserBasket });
-            return users;
+            this.userBasketRepository = userBasketRepository;
         }
 
-        public async Task<IEnumerable<User>> GetAllWithSpec(ISpecification<User> specification)
+        public async Task<IEnumerable<User>> GetAllWithSpec()
         {
+            var specification = new UsersWithIncludesSpecification();
             return await userRepository.GetAllWithSpecAsync(specification);
         }
 
         public async Task<User> GetById(int id)
         {
-            return await userRepository.GetByIdAsync(id);
+            var specification = new UserByIdWithIncludesSpecification(id);
+            return await userRepository.GetSingleWithSpecAsync(specification);
         }
+
         public async Task<User> GetByUsername(string username)
         {
             var specification = new UsersByUsernameSpecification(username);
@@ -53,26 +38,36 @@ namespace ApplicationCore.Services
 
         public async Task<User> Add(User user)
         {
-            if (user.Orders?.Count != 0)
-            {
-                await GetOrders(user);
-            }
+            var userBasket = await userBasketRepository.AddAsync(new UserBasket { Id = 0, Currency = "HRK" });
+            user.UserBasket = userBasket;
             user.PasswordCrypted = BCrypt.Net.BCrypt.HashPassword(user.Password);
             return await userRepository.AddAsync(user);
         }
+
         public async Task Update(User user)
         {
-            await GetOrders(user);
             await userRepository.UpdateAsync(user);
         }
-        public async Task Delete(User user)
+
+        public async Task Delete(int id)
         {
-            await userRepository.DeleteAsync(user);
+            await userRepository.DeleteByIdAsync(id);
         }
+
         public async Task DeleteById(int id)
         {
             await userRepository.DeleteByIdAsync(id);
         }
 
+        public async Task<IEnumerable<Order>> FindOrders(User user)
+        {
+            var specification = new OrdersByIdWithIncludesSpecification(user.Id);
+            return await orderRepository.FindWithSpecificationAsync(specification);
+        }
+
+        public async Task<IEnumerable<User>> FindWithSpecification(ISpecification<User> specification)
+        {
+            return await userRepository.FindWithSpecificationAsync(specification);
+        }
     }
 }
