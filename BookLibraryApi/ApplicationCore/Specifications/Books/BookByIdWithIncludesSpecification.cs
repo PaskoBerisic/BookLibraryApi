@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationCore.Specifications.Books
 {
-    public class BooksWithIncludesSpecification : BaseSpecification<Book>
+    public class BookByIdWithIncludesSpecification : BaseSpecification<Book>
     {
-        public BooksWithIncludesSpecification() : base()
+        public BookByIdWithIncludesSpecification(int id) : base()
         {
+            SetCriteria(x => x.Id == id);
             AddInclude(x => x.Include(x => x.BookAuthors).ThenInclude(x => x.Author));
             AddInclude(x => x.Include(x => x.BookGenres).ThenInclude(x => x.Genre));
             AddInclude(x => x.Include(x => x.BookOrders).ThenInclude(x => x.Order));

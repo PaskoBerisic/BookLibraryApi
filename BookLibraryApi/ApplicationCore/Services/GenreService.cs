@@ -37,7 +37,7 @@ namespace ApplicationCore.Services
 
         public async Task<IEnumerable<Genre>> GetAllWithSpec()
         {
-            var specification = new GenresWithBooksSpecification();
+            var specification = new GenresWithIncludesSpecification();
             return await genreRepository.GetAllWithSpecAsync(specification);
         }
 

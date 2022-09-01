@@ -32,7 +32,7 @@ namespace ApplicationCore.Services
 
         public async Task<User> GetByUsername(string username)
         {
-            var specification = new UsersByUsernameSpecification(username);
+            var specification = new UserByIdWithIncludesSpecification(username);
             return await userRepository.GetSingleWithSpecAsync(specification);
         }
 

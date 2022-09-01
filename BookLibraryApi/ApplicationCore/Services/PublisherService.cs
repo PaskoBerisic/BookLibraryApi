@@ -19,7 +19,7 @@ namespace ApplicationCore.Services
 
         public async Task<IEnumerable<Publisher>> GetAllWithSpec()
         {
-            var specification = new PublishersWithIncludesSpecification();
+            var specification = new PublisherByIdWithIncludesSpecification();
             return await publisherRepository.GetAllWithSpecAsync(specification);
         }
 
@@ -55,7 +55,7 @@ namespace ApplicationCore.Services
 
         public async Task<ICollection<Book>> GetBooks(ICollection<int> bookIds)
         {
-            var specification = new BooksForSpecification(bookIds);
+            var specification = new BookByIdWithIncludesSpecification(bookIds);
             var books = (await bookRepository.FindWithSpecificationAsync(specification)).ToList();
             return books;
         }

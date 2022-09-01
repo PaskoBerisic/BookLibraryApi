@@ -273,7 +273,7 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Users")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
         {
-            var specification = new UserWithOrdersWithBooksSpecification();
+            var specification = new UsersWithIncludesSpecification();
             var users = await userService.GetAllWithSpec(specification);
             return Ok(mapper.Map<List<UserModel>>(users));
         }
@@ -290,7 +290,7 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Users/{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUserById(int id)
         {
-            var specification = new UserWithOrdersWithBooksSpecification();
+            var specification = new UsersWithIncludesSpecification();
             var users = await userService.GetAllWithSpec(specification);
             foreach (var user in users)
             {

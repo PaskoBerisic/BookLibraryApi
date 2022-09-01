@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationCore.Specifications.UserBaskets
 {
-    public class UserBasketsWithIncludesSpecification : BaseSpecification<UserBasket>
+    public class UserBasketByIdWithIncludesSpecification : BaseSpecification<UserBasket>
     {
-        public UserBasketsWithIncludesSpecification() : base()
+        public UserBasketByIdWithIncludesSpecification(int id) : base()
         {
+            SetCriteria(x => x.Id == id);
             AddInclude(x => x.Include(x => x.BookUserBaskets).ThenInclude(x => x.Book));
         }
     }

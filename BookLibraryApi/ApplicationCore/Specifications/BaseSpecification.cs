@@ -21,6 +21,10 @@ namespace ApplicationCore.Specifications
         public Expression<Func<T, object>> OrderBy { get; private set; }
         public Expression<Func<T, object>> OrderByDescending { get; private set; }
 
+        protected void SetCriteria(Expression<Func<T, bool>> criteria)
+        {
+            Criteria = criteria;
+        }
         protected virtual void AddInclude(Func<IQueryable<T>, IIncludableQueryable<T, object?>> include)
         {
             Includes.Add(include);
