@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     public class Order
     {
@@ -10,11 +7,13 @@ namespace ApplicationCore.Entities
         public decimal TotalRentalPrice { get; set; }
         public decimal TotalRentalPriceWithVAT { get; set; }
         public string? Currency { get; set; }
+
         // One to Many
         public int UserId { get; set; }
         public User? User { get; set; }
+        
         // Many to Many
-        public ICollection<Book>? Books { get; set; }
+        public ICollection<BookOrder>? BookOrders { get; set; }
 
     }
 }
