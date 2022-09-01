@@ -15,19 +15,19 @@ namespace ApplicationCore.Services
     public class GenreService : IGenreService
     {
         private readonly IRepository<Genre> genreRepository;
-        private readonly IBookService2 bookService;
-        public GenreService(IRepository<Genre> genreRepository, IBookService2 bookService)
+        private readonly IRepository<Book> bookRepository;
+        public GenreService(IRepository<Genre> genreRepository, IRepository<Book> bookRepository)
         {
             this.genreRepository = genreRepository;
-            this.bookService = bookService;
+            this.bookRepository = bookRepository;
         }
 
         public async Task GetBooks(Genre genre)
         {
             var specification = new BooksForSpecification(genre.Books.Select(x => x.Id).ToList());
-            var genreBooks = (await bookService.GetAllWithSpec(specification)).ToList();
-            genreBooks.AddRange(genre.Books.Where(x => !genreBooks.Select(x => x.Id).Contains(x.Id)));
-            genre.Books = genreBooks;
+            var authorBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
+            authorBooks.AddRange(genre.Books.Where(x => !authorBooks.Select(x => x.Id).Contains(x.Id)));
+            genre.Books = authorBooks;
         }
         public async Task<IEnumerable<Genre>> GetAllWith()
         {

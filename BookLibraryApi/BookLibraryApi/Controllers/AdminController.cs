@@ -75,15 +75,15 @@ namespace BookLibraryApi.Controllers
             var countries = await countryService.GetAllWithSpec();
             return Ok(mapper.Map<List<CountryModel>>(countries));
         }
+
         [AllowAnonymous]
         [HttpGet("Countries/{id}")]
         public async Task<ActionResult<IEnumerable<CountryModel>>> GetCountryById(int id)
         {
-            var countries = await countryService.GetAllWith();
-            foreach(var country1 in countries)
+            var country = await countryService.GetById(id);
+            if (country is not null)
             {
-                if(country1.Id == id)
-                    return Ok(mapper.Map<CountryModel>(country1));
+                return Ok(mapper.Map<CountryModel>(country));
             }
             return NotFound($"Country with id {id} not found.");
             //var country = await bookLibraryService.GetCountryById(id);
@@ -112,7 +112,7 @@ namespace BookLibraryApi.Controllers
             await countryService.Update(item);
             return CreatedAtAction(nameof(GetCountryById), new { item.Id }, item);
         }
-        
+
         [AuthorizeJWT(Role.Admin)]
         [HttpDelete("Countries/{id}")]
         public async Task<ActionResult<CountryModel>> DeleteCountryById(int id)
@@ -132,15 +132,15 @@ namespace BookLibraryApi.Controllers
             var genres = await genreService.GetAllWithSpec();
             return Ok(mapper.Map<List<GenreModel>>(genres));
         }
+
         [AllowAnonymous]
         [HttpGet("Genres/{id}")]
         public async Task<ActionResult<IEnumerable<GenreModel>>> GetGenreById(int id)
         {
-            var genres = await genreService.GetAllWith();
-            foreach (var genre in genres)
+            var genre = await genreService.GetById(id);
+            if (genre is not null)
             {
-                if (genre.Id == id)
-                    return Ok(mapper.Map<GenreModel>(genre));
+                return Ok(mapper.Map<GenreModel>(genre));
             }
             return NotFound($"Genre with id {id} not found.");
         }
@@ -185,11 +185,10 @@ namespace BookLibraryApi.Controllers
         [HttpGet("Languages/{id}")]
         public async Task<ActionResult<IEnumerable<LanguageModel>>> GetLanguageById(int id)
         {
-            var languages = await languageService.GetAllWith();
-            foreach (var language in languages)
+            var language = await languageService.GetById(id);
+            if (language is not null)
             {
-                if (language.Id == id)
-                    return Ok(mapper.Map<LanguageModel>(language));
+                return Ok(mapper.Map<LanguageModel>(language));
             }
             return NotFound($"Language with id {id} not found.");
         }
@@ -229,15 +228,15 @@ namespace BookLibraryApi.Controllers
             var publishers = await publisherService.GetAllWithSpec();
             return Ok(mapper.Map<List<PublisherModel>>(publishers));
         }
+
         [AllowAnonymous]
         [HttpGet("Publishers/{id}")]
         public async Task<ActionResult<IEnumerable<PublisherModel>>> GetPublisherById(int id)
         {
-            var publishers = await publisherService.GetAllWith();
-            foreach (var publisher in publishers)
+            var publisher = await publisherService.GetById(id);
+            if (publisher is not null)
             {
-                if (publisher.Id == id)
-                    return Ok(mapper.Map<PublisherModel>(publisher));
+                return Ok(mapper.Map<PublisherModel>(publisher));
             }
             return NotFound($"Publisher with id {id} not found.");
         }
@@ -278,6 +277,15 @@ namespace BookLibraryApi.Controllers
             var users = await userService.GetAllWithSpec(specification);
             return Ok(mapper.Map<List<UserModel>>(users));
         }
+
+        [AllowAnonymous]
+        [HttpGet("UsersSaStarimExpression")]
+        public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsersExpression()
+        {
+            var users = await userService.GetAllWith();
+            return Ok(mapper.Map<List<UserModel>>(users));
+        }
+
         [AllowAnonymous]
         [HttpGet("Users/{id}")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUserById(int id)
@@ -287,17 +295,46 @@ namespace BookLibraryApi.Controllers
             foreach (var user in users)
             {
                 if (user.Id == id)
+                {
+                    userBasketService.CalculateBasket(user.UserBasket);
                     return Ok(mapper.Map<UserModel>(user));
+                }
             }
             return NotFound($"User with id {id} not found.");
         }
-        [AuthorizeJWT(Role.Admin)]
+        //{
+        //    var user = await userService.GetById(id);
+        //    if (user is not null)
+        //    {
+        //        return Ok(mapper.Map<UserModel>(user));
+        //    }
+        //    return NotFound($"User with id {id} not found.");
+        //}
+
+        [AllowAnonymous]
+        [HttpGet("Users/tr/{username}")]
+        public async Task<ActionResult<IEnumerable<UserModel>>> GetUserByUsername(string username)
+        {
+            var user = await userService.GetByUsername(username);
+            if (user is not null)
+            {
+                return Ok(mapper.Map<UserModel>(user));
+            }
+            return NotFound($"User with username '{username}' not found.");
+        }
+
+        [AllowAnonymous]
         [HttpPost("Users")]
         public async Task<ActionResult<UserModel>> AddUser([FromBody] UserPostModel userPostModel)
         {
             var user = mapper.Map<User>(userPostModel);
-            var userAdded = await userService.Add(user);
-            return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
+            var existingUser = await userService.GetByUsername(user.Username);
+            if (existingUser is null)
+            {
+                var userAdded = await userService.Add(user);
+                return CreatedAtAction(nameof(GetUserById), new { userAdded.Id }, userAdded);
+            }
+            return BadRequest($"Username '{user.Username}' is not avaiable!");
         }
         [AuthorizeJWT(Role.Admin)]
         [HttpPut("Users")]
@@ -324,19 +361,35 @@ namespace BookLibraryApi.Controllers
         public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetAllUserBaskets()
         {
             var userBaskets = await userBasketService.GetAllWithSpec();
+            foreach (var userBasket in userBaskets)
+            {
+                userBasketService.CalculateBasket(userBasket);
+            }
             return Ok(mapper.Map<List<UserBasketModel>>(userBaskets));
         }
+
         [AllowAnonymous]
         [HttpGet("UserBaskets/{id}")]
         public async Task<ActionResult<IEnumerable<UserBasketModel>>> GetUserBasketById(int id)
         {
-            var userBaskets = await userBasketService.GetAllWith();
+            var userBaskets = await userBasketService.GetAllWithSpec();
             foreach (var userBasket in userBaskets)
             {
                 if (userBasket.Id == id)
+                {
+                    userBasketService.CalculateBasket(userBasket);
                     return Ok(mapper.Map<UserBasketModel>(userBasket));
+                }
             }
             return NotFound($"UserBasket with id {id} not found.");
+
+            //    var userBasket = await userBasketService.GetById(id);
+            //    if (userBasket is not null)
+            //    {
+            //        return Ok(mapper.Map<UserBasketModel>(userBasket));
+            //    }
+            //    return NotFound($"UserBasket with id {id} not found.");
+            //
         }
         [AuthorizeJWT(Role.Admin)]
         [HttpPost("UserBaskets")]
@@ -346,6 +399,44 @@ namespace BookLibraryApi.Controllers
             var userBasketAdded = await userBasketService.Add(userBasket);
             return CreatedAtAction(nameof(GetUserBasketById), new { userBasketAdded.Id }, userBasketAdded);
         }
+
+        [AllowAnonymous]
+        [HttpPost("UserBaskets/AddBook")]
+        public async Task<ActionResult<UserBasketModel>> AddBookToUserBasket([FromBody] AddBookRequest request)
+        {
+            var bookId = request.bookId;
+            var userBaskets = await userBasketService.GetAllWithSpec();
+            foreach (var userBasket in userBaskets)
+            {
+                if (userBasket.Id == request.userBasketId)
+                {
+                    userBasketService.AddBookToUserBasket(bookId, userBasket);
+
+                    return CreatedAtAction(nameof(GetUserBasketById), new { userBasket.Id }, userBasket);
+                }
+            }
+            return NotFound("Not found");
+        }
+
+        [AllowAnonymous]
+        [HttpPost("UserBaskets/DeleteBook")]
+        public async Task<ActionResult<UserBasketModel>> DeleteBookFromUserBasket([FromBody] AddBookRequest request)
+        {
+            var bookId = request.bookId;
+            var userBaskets = await userBasketService.GetAllWithSpec();
+            foreach (var userBasket in userBaskets)
+            {
+                if (userBasket.Id == request.userBasketId)
+                {
+                    userBasketService.DeleteBookFromUserBasket(bookId, userBasket);
+
+                    return CreatedAtAction(nameof(GetUserBasketById), new { userBasket.Id }, userBasket);
+                }
+            }
+            return NotFound("Not found");
+        }
+
+
         [AuthorizeJWT(Role.Admin)]
         [HttpPut("UserBaskets")]
         public async Task<ActionResult<UserBasketModel>> UpdateUserBasket([FromBody] UserBasketPutModel userBasketPutModel)

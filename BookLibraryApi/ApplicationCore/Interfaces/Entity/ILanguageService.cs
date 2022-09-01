@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Language>> GetAllWith();
         Task<IEnumerable<Language>> GetAllWithSpec();
         Task<Language> GetById(int id);
-        Task<Language> Add(Language author);
-        Task Update(Language author);
-        Task Delete(Language author);
+        Task<Language> Add(Language language);
+        Task Update(Language language);
+        Task Delete(Language language);
         Task DeleteById(int id);
 
     }

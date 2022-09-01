@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Country>> GetAllWith();
         Task<IEnumerable<Country>> GetAllWithSpec();
         Task<Country> GetById(int id);
-        Task<Country> Add(Country author);
-        Task Update(Country author);
-        Task Delete(Country author);
+        Task<Country> Add(Country country);
+        Task Update(Country country);
+        Task Delete(Country country);
         Task DeleteById(int id);
     }
 }

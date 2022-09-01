@@ -13,6 +13,7 @@ namespace BookLibraryApi.Models.User
         public DateTime DateOfBirth { get; set; }
         public string? Address { get; set; }
         public Role Role { get; set; }
+        // One to Many
         // Many to Many
         public ICollection<OrderModelShort>? Orders { get; set; }
     }

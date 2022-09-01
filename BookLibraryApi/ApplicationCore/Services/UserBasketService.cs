@@ -15,20 +15,19 @@ namespace ApplicationCore.Services
     public class UserBasketService : IUserBasketService
     {
         private readonly IRepository<UserBasket> userBasketRepository;
-        private readonly IBookService bookService;
-        public UserBasketService(IRepository<UserBasket> userBasketRepository, IBookService bookService)
+        private readonly IRepository<Book> bookRepository;
+        public UserBasketService(IRepository<UserBasket> userBasketRepository, IRepository<Book> bookRepository)
         {
             this.userBasketRepository = userBasketRepository;
-            this.bookService = bookService;
+            this.bookRepository = bookRepository;
         }
         public async Task GetBooks(UserBasket userBasket)
         {
             var specification = new BooksForSpecification(userBasket.Books.Select(x => x.Id).ToList());
-            var basketBooks = (await bookService.FindWithSpecificationPattern(specification)).ToList();
+            var basketBooks = (await bookRepository.FindWithSpecificationPattern(specification)).ToList();
             basketBooks.AddRange(userBasket.Books.Where(x => !basketBooks.Select(x => x.Id).Contains(x.Id)));
             userBasket.Books = basketBooks;
         }
-
         public async Task<IEnumerable<UserBasket>> GetAllWith()
         {
             return await userBasketRepository.GetAllWithIncludesAsync(new List<Expression<Func<UserBasket, object>>>() { x => x.Books });
@@ -61,6 +60,32 @@ namespace ApplicationCore.Services
         public async Task DeleteById(int id)
         {
             await userBasketRepository.DeleteByIdAsync(id);
+        }
+
+        public async Task AddBookToUserBasket(int bookId, UserBasket userBasket)
+        {
+            var book = await bookRepository.GetByIdAsync(bookId);
+            userBasket.Books.Add(book);
+            CalculateBasket(userBasket);
+            userBasketRepository.SaveChangesAsync();
+        }
+        public async Task DeleteBookFromUserBasket(int bookId, UserBasket userBasket)
+        {
+            var book = await bookRepository.GetByIdAsync(bookId);
+            userBasket.Books.Remove(book);
+            CalculateBasket(userBasket);
+            userBasketRepository.SaveChangesAsync();
+        }
+
+        public void CalculateBasket(UserBasket userBasket)
+        {
+            decimal sum = 0;
+            foreach(var book in userBasket.Books)
+            {
+                sum += book.RentalPrice;
+            }
+            userBasket.TotalRentalPrice = sum;
+            userBasket.TotalRentalPriceWithVAT = Decimal.Multiply(userBasket.TotalRentalPrice, 1.25m);
         }
     }
 

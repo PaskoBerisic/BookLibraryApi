@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Specifications.NewFolder
+namespace ApplicationCore.Specifications.Orders
 {
     public class OrdersForSpecification : BaseSpecification<Order>
     {

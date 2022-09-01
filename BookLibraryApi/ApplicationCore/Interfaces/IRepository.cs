@@ -9,6 +9,8 @@ namespace ApplicationCore.Interfaces
         Task<IEnumerable<T>> GetAllWithIncludesAsync(List<Expression<Func<T, object>>> includes);
         Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecification<T> specification);
         Task<IEnumerable<T>> FindWithSpecificationPattern(ISpecification<T> specification = null);
+        Task<T> GetSingleWithSpecAsync(ISpecification<T> specification);
+
         Task<T> GetByIdAsync<Tid>(Tid id) where Tid : notnull;
         Task<T> GetByNameAsync<Tname>(Tname tname);
         Task<T> AddAsync(T entity);

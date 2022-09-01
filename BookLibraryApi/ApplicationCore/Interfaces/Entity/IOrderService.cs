@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Order>> GetAllWith();
         Task<IEnumerable<Order>> GetAllWithSpec();
         Task<Order> GetById(int id);
-        Task<Order> Add(Order author);
-        Task Update(Order author);
-        Task Delete(Order author);
+        Task<Order> Add(Order order);
+        Task Update(Order order);
+        Task Delete(Order order);
         Task DeleteById(int id);
 
     }

@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Publisher>> GetAllWith();
         Task<IEnumerable<Publisher>> GetAllWithSpec();
         Task<Publisher> GetById(int id);
-        Task<Publisher> Add(Publisher author);
-        Task Update(Publisher author);
-        Task Delete(Publisher author);
+        Task<Publisher> Add(Publisher publisher);
+        Task Update(Publisher publisher);
+        Task Delete(Publisher publisher);
         Task DeleteById(int id);
 
     }

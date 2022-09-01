@@ -31,8 +31,13 @@ namespace Infrastructure.Data
         }
         public async Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecification<T> specification)
         {
-            var query = SpecificationEvaulator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
+            var query = SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
             return await query.ToListAsync();
+        }
+        public async Task<T> GetSingleWithSpecAsync(ISpecification<T> specification)
+        {
+            var query = SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
+            return await query.SingleOrDefaultAsync();
         }
 
         public async Task<T> GetByIdAsync<Tid>(Tid id) where Tid : notnull
@@ -71,7 +76,7 @@ namespace Infrastructure.Data
         // Spec
         public async Task<IEnumerable<T>> FindWithSpecificationPattern(ISpecification<T> specification = null)
         {
-            var query = SpecificationEvaulator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
+            var query = SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), specification);
             return await query.ToListAsync();
         }
 

@@ -1,9 +1,12 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
 using BookLibraryApi.Models;
 using BookLibraryApi.Models.Author;
+using Infrastructure.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 namespace BookLibraryApi.Controllers
@@ -20,7 +23,8 @@ namespace BookLibraryApi.Controllers
             this.authorService = authorService;
             this.mapper = mapper;
         }
-        
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> GetAllAuthors()
         {
@@ -28,17 +32,18 @@ namespace BookLibraryApi.Controllers
             return Ok(mapper.Map<List<AuthorModel>>(authors));
         }
 
+        [AuthorizeJWT(Role.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AuthorModel>>> GetById(int id)
         {
-            var authors = await authorService.GetAllWith();
-            foreach (var author in authors)
+            var author = await authorService.GetById(id);
+            if(author is not null)
             {
-                if (author.Id == id)
-                    return Ok(mapper.Map<AuthorModel>(author));
+                return Ok(mapper.Map<AuthorModel>(author));
             }
             return NotFound($"Author with id {id} not found.");
         }
+        [AuthorizeJWT(Role.Admin)]
         [HttpPost]
         public async Task<ActionResult<AuthorModel>> Add([FromBody] AuthorPostModel authorPostModel)
         {
@@ -47,7 +52,7 @@ namespace BookLibraryApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new { authorAdded.Id }, authorAdded);
         }
-        
+        [AuthorizeJWT(Role.Admin)]
         [HttpPut]
         public async Task<ActionResult<AuthorModel>> Update([FromBody] AuthorPutModel authorPutModel)
         {
@@ -55,7 +60,7 @@ namespace BookLibraryApi.Controllers
             await authorService.Update(item);
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
-
+        [AuthorizeJWT(Role.Admin)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<AuthorModel>> Delete(int id)
         {

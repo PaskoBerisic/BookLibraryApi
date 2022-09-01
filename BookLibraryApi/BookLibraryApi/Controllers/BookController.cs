@@ -1,10 +1,13 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
 using AutoMapper;
 using BookLibraryApi.Models;
 using BookLibraryApi.Models.Book;
+using Infrastructure.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +25,7 @@ namespace BookLibraryApi.Controllers
             this.mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetAllBooks()
         {
@@ -29,6 +33,7 @@ namespace BookLibraryApi.Controllers
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("[action]")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksWithAuthorsSpec()
@@ -38,6 +43,7 @@ namespace BookLibraryApi.Controllers
             return Ok(mapper.Map<List<BookModel>>(books));
         }
 
+        [AllowAnonymous]
         [HttpGet("ByYearDesc")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksByYearSpec()
         {
@@ -45,6 +51,7 @@ namespace BookLibraryApi.Controllers
             var books = await bookService.FindWithSpecificationPattern(specification);
             return Ok(books);
         }
+        [AllowAnonymous]
         [HttpGet("ByRentalNumber")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetBooksByRentalNumberSpec()
         {
@@ -52,20 +59,21 @@ namespace BookLibraryApi.Controllers
             var books = await bookService.FindWithSpecificationPattern(specification);
             return Ok(books);
         }
+
+        [AuthorizeJWT(Role.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<BookModel>>> GetById(int id)
         {
-            var books = await bookService.GetAllWith();
-            foreach (var book in books)
+            var book = await bookService.GetById(id);
+            if (book is not null)
             {
-                if (book.Id == id)
-                    return Ok(mapper.Map<BookModel>(book));
+                return Ok(mapper.Map<BookModel>(book));
             }
             return NotFound($"Book with id {id} not found.");
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookModel>> Add([FromBody] BookPostModel bookPostModel )
+        public async Task<ActionResult<BookModel>> Add([FromBody] BookPostModel bookPostModel)
         {
             var book = mapper.Map<Book>(bookPostModel);
             var bookAdded = await bookService.Add(book);
@@ -80,6 +88,7 @@ namespace BookLibraryApi.Controllers
             return CreatedAtAction(nameof(GetById), new { item.Id }, item);
         }
 
+        [AuthorizeJWT(Role.Admin)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<BookModel>> Delete(int id)
         {
@@ -88,5 +97,5 @@ namespace BookLibraryApi.Controllers
         }
     }
 
-    
+
 }

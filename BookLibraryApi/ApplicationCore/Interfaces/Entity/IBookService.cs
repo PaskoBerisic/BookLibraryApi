@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Book>> GetAllWith();
         Task<IEnumerable<Book>> GetAllWithSpec();
         Task<Book> GetById(int id);
-        Task<Book> Add(Book author);
-        Task Update(Book author);
-        Task Delete(Book author);
+        Task<Book> Add(Book book);
+        Task Update(Book book);
+        Task Delete(Book book);
         Task DeleteById(int id);
         Task<IEnumerable<Book>> FindWithSpecificationPattern(ISpecification<Book> specification = null);
     }

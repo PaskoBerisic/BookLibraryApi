@@ -21,7 +21,8 @@ namespace ApplicationCore.Entities
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
-        public int UserBasketId { get; set; }
+        // One to Many
+        public int? UserBasketId { get; set; }
         public UserBasket? UserBasket { get; set; }
         // Many to Many
         public ICollection<Order>? Orders { get; set; }

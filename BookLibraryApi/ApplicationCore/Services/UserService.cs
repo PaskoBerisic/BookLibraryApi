@@ -1,14 +1,9 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
-using ApplicationCore.Specifications.NewFolder;
+using ApplicationCore.Specifications.Orders;
 using ApplicationCore.Specifications.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
@@ -37,7 +32,7 @@ namespace ApplicationCore.Services
 
         public async Task<IEnumerable<User>> GetAllWith()
         {
-            var users = await userRepository.GetAllWithIncludesAsync(new List<Expression<Func<User, object>>>() { x => x.Orders });
+            var users = await userRepository.GetAllWithIncludesAsync(new List<Expression<Func<User, object>>>() { x => x.Orders, y=> y.UserBasket });
             return users;
         }
 
@@ -50,9 +45,19 @@ namespace ApplicationCore.Services
         {
             return await userRepository.GetByIdAsync(id);
         }
+        public async Task<User> GetByUsername(string username)
+        {
+            var specification = new UsersByUsernameSpecification(username);
+            return await userRepository.GetSingleWithSpecAsync(specification);
+        }
+
         public async Task<User> Add(User user)
         {
-            await GetOrders(user);
+            if (user.Orders?.Count != 0)
+            {
+                await GetOrders(user);
+            }
+            user.PasswordCrypted = BCrypt.Net.BCrypt.HashPassword(user.Password);
             return await userRepository.AddAsync(user);
         }
         public async Task Update(User user)
@@ -68,5 +73,6 @@ namespace ApplicationCore.Services
         {
             await userRepository.DeleteByIdAsync(id);
         }
+
     }
 }

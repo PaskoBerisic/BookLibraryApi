@@ -13,9 +13,9 @@ namespace ApplicationCore.Interfaces.Entity
         Task<IEnumerable<Genre>> GetAllWith();
         Task<IEnumerable<Genre>> GetAllWithSpec();
         Task<Genre> GetById(int id);
-        Task<Genre> Add(Genre author);
-        Task Update(Genre author);
-        Task Delete(Genre author);
+        Task<Genre> Add(Genre genre);
+        Task Update(Genre genre);
+        Task Delete(Genre genre);
         Task DeleteById(int id);
 
     }
