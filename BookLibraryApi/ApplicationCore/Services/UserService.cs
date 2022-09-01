@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Orders;
 using ApplicationCore.Specifications.Users;
 
 namespace ApplicationCore.Services
@@ -32,7 +33,7 @@ namespace ApplicationCore.Services
 
         public async Task<User> GetByUsername(string username)
         {
-            var specification = new UserByIdWithIncludesSpecification(username);
+            var specification = new UsersByUsernameSpecification(username);
             return await userRepository.GetSingleWithSpecAsync(specification);
         }
 

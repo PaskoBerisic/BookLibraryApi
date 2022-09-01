@@ -16,7 +16,7 @@ namespace ApplicationCore.Specifications
             Criteria = criteria;
         }
 
-        public Expression<Func<T, bool>> Criteria { get; }
+        public Expression<Func<T, bool>> Criteria { get; private set; }
         public List<Func<IQueryable<T>, IIncludableQueryable<T, object?>>> Includes { get; } = new List<Func<IQueryable<T>, IIncludableQueryable<T, object?>>>();
         public Expression<Func<T, object>> OrderBy { get; private set; }
         public Expression<Func<T, object>> OrderByDescending { get; private set; }

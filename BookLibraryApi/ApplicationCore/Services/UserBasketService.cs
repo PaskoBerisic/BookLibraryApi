@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.BookUserBaskets;
 using ApplicationCore.Specifications.UserBaskets;
 
 namespace ApplicationCore.Services

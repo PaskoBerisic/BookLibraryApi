@@ -1,6 +1,8 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.BookAuthors;
+using ApplicationCore.Specifications.BookGenres;
 using ApplicationCore.Specifications.Books;
 
 namespace ApplicationCore.Services

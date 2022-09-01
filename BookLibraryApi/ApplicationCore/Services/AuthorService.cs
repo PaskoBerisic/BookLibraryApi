@@ -1,6 +1,8 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Authors;
+using ApplicationCore.Specifications.BookAuthors;
 
 namespace ApplicationCore.Services
 {

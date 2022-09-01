@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Entity;
+using ApplicationCore.Specifications.Languages;
 
 namespace ApplicationCore.Services
 {
@@ -16,8 +17,7 @@ namespace ApplicationCore.Services
         }
         public async Task<IEnumerable<Language>> GetAllWithSpec()
         {
-            var specification = new LanguagesWithIncludesSpecification();
-            return await languageRepository.GetAllWithSpecAsync(specification);
+            return await languageRepository.GetAllAsync();
         }
 
         public async Task<Language> GetById(int id)
