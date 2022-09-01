@@ -1,10 +1,5 @@
 ﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications.Orders
 {
@@ -12,7 +7,7 @@ namespace ApplicationCore.Specifications.Orders
     {
         public OrdersWithIncludesSpecification() : base()
         {
-            AddInclude(x => x.Include(x => x.Books));
+            AddInclude(x => x.Include(x => x.BookOrders).ThenInclude(x => x.Book));
             AddInclude(x => x.Include(x => x.User));
         }
     }

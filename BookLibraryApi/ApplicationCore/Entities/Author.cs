@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     public class Author
     {
@@ -14,10 +11,12 @@ namespace ApplicationCore.Entities
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
+
         // One to Many
         public int CountryId { get; set; }
         public Country? Country { get; set; }
+        
         // Many to Many
-        public ICollection<Book>? Books { get; set; }
+        public ICollection<BookAuthor>? BookAuthors { get; set; }
     }
 }

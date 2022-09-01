@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     public class Book
     {
@@ -14,20 +10,21 @@ namespace ApplicationCore.Entities
         public decimal ListPrice { get; set; }
         public int UnitNumber { get; set; }
         public int UnitsRented { get; set; }
+
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
+
         // One to Many
         public int LanguageId { get; set; }
         public Language? Language { get; set; }
         public int PublisherId { get; set; }
         public Publisher? Publisher { get; set; }
         // Many to Many
-        public ICollection<Author>? Authors { get; set; }
-        public ICollection<Genre>? Genres { get; set; }
-        public ICollection<Order>? Orders { get; set; }
-        public ICollection<UserBasket>? UserBaskets{ get; set; }
-
+        public ICollection<BookAuthor>? BookAuthors { get; set; }
+        public ICollection<BookGenre>? BookGenres { get; set; }
+        public ICollection<BookUserBasket>? BookUserBaskets { get; set; }
+        public ICollection<BookOrder>? BookOrders { get; set; }
     }
 }

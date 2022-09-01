@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ApplicationCore.Entities
+﻿namespace ApplicationCore.Entities
 {
     public class Language
     {
@@ -11,7 +9,5 @@ namespace ApplicationCore.Entities
         public DateTime Created { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime Updated { get; set; }
-        // Many to Many
-        public ICollection<Book>? Books { get; set; }
     }
 }
