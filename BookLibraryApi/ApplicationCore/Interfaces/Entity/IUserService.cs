@@ -10,14 +10,13 @@ namespace ApplicationCore.Interfaces.Entity
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllWith();
-        Task<IEnumerable<User>> GetAllWithSpec(ISpecification<User> specification);
+        Task<IEnumerable<User>> GetAllWithSpec();
         Task<User> GetById(int id);
         Task<User> GetByUsername(string username);
         Task<User> Add(User user);
         Task Update(User user);
-        Task Delete(User user);
         Task DeleteById(int id);
-
+        Task<IEnumerable<User>> FindWithSpecification(ISpecification<User> specification = null);
+        Task<IEnumerable<Order>> FindOrders(User user);
     }
 }

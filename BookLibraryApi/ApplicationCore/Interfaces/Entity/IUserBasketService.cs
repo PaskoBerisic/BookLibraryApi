@@ -10,16 +10,15 @@ namespace ApplicationCore.Interfaces.Entity
 {
     public interface IUserBasketService
     {
-        Task<IEnumerable<UserBasket>> GetAllWith();
         Task<IEnumerable<UserBasket>> GetAllWithSpec();
+        Task<UserBasket> GetSingleWithSpec(ISpecification<UserBasket> specification);
         Task<UserBasket> GetById(int id);
-        Task<UserBasket> Add(UserBasket userBasket);
-        Task Update(UserBasket userBasket);
+        Task<UserBasket> Add(UserBasket userBasket, ICollection<int> id);
+        Task Update(UserBasket userBasket, ICollection<int> id);
         Task Delete(UserBasket userBasket);
         Task DeleteById(int id);
-        Task AddBookToUserBasket(int id, UserBasket userBasket);
-        Task DeleteBookFromUserBasket(int id, UserBasket userBasket);
-        void CalculateBasket(UserBasket userBasket);
-
+        Task<IEnumerable<UserBasket>> FindWithSpecification(ISpecification<UserBasket> specification = null);
+        Task AddBookToUserBasket(int bookId, int userBasketId);
+        Task DeleteBookFromUserBasket(int bookId, int userBasketId);
     }
 }
