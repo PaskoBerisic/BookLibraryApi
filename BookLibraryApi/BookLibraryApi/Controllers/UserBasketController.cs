@@ -2,6 +2,8 @@
 using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.UserBasket;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -23,27 +25,27 @@ namespace BookLibraryApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserBasketResponse>>> GetAllUserBaskets()
+        public async Task<ActionResult<IEnumerable<UserBasketModelResponse>>> GetAllUserBaskets()
         {
             var userBaskets = await userBasketService.GetAllWithSpec();
-            return Ok(mapper.Map<List<UserBasketResponse>>(userBaskets));
+            return Ok(mapper.Map<List<UserBasketModelResponse>>(userBaskets));
         }
 
         [AuthorizeJWT(Role.Admin, Role.User)]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserBasketResponse>> GetUserBasketById(int id)
+        public async Task<ActionResult<UserBasketModelResponse>> GetUserBasketById(int id)
         {
             var userBasket = await userBasketService.GetById(id);
             if (userBasket is null)
             {
                 return NotFound($"UserBasket with id {id} not found.");
             }
-            return Ok(mapper.Map<UserBasketResponse>(userBasket));
+            return Ok(mapper.Map<UserBasketModelResponse>(userBasket));
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<UserBasketResponse>> AddUserBasket([FromBody] UserBasketRequest userBasketModel)
+        public async Task<ActionResult<UserBasketModelResponse>> AddUserBasket([FromBody] UserBasketModelRequest userBasketModel)
         {
             var userBasket = mapper.Map<UserBasket>(userBasketModel);
 
@@ -53,7 +55,7 @@ namespace BookLibraryApi.Controllers
 
         [AuthorizeJWT(Role.Admin, Role.User)]
         [HttpPut]
-        public async Task<ActionResult<UserBasketResponse>> UpdateUserBasket([FromBody] UserBasketRequest userBasketModel)
+        public async Task<ActionResult<UserBasketModelResponse>> UpdateUserBasket([FromBody] UserBasketModelRequest userBasketModel)
         {
             var item = mapper.Map<UserBasket>(userBasketModel);
 
@@ -63,7 +65,7 @@ namespace BookLibraryApi.Controllers
 
         [AuthorizeJWT(Role.Admin)]
         [HttpDelete]
-        public async Task<ActionResult<UserBasketRequest>> DeleteUserBasket(int id)
+        public async Task<ActionResult<UserBasketModelRequest>> DeleteUserBasket(int id)
         {
             await userBasketService.DeleteById(id);
             return Ok($"UserBasket with id {id} deleted");

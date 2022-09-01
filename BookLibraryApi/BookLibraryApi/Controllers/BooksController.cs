@@ -3,6 +3,8 @@ using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Specifications.Books;
 using AutoMapper;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.Book;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -46,7 +48,7 @@ namespace BookLibraryApi.Controllers
         [HttpGet("ByUnitlNumber")]
         public async Task<ActionResult<IEnumerable<BookModelResponse>>> GetBooksByUnitNumber()
         {
-            var specification = new BooksByUnitNumberSpecification();
+            var specification = new BooksByRentalNumberSpecification();
             var books = await bookService.FindWithSpecification(specification);
 
             return Ok(mapper.Map<List<BookModelResponse>>(books));

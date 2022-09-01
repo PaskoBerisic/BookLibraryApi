@@ -2,6 +2,7 @@
 using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
+using BookLibraryApi.Models;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;

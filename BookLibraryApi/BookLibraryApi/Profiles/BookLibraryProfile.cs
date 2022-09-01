@@ -18,13 +18,13 @@ namespace BookLibraryApi.Profiles
     {
         public BookLibraryProfile()
         {
-            CreateMap<Author, AuthorModel>().ReverseMap();
+            CreateMap<Author, AuthorModelRequest>().ReverseMap();
             CreateMap<Author, AuthorModelShort>().ReverseMap();
             CreateMap<Author, AuthorPostModel>().ReverseMap();
             CreateMap<Author, AuthorPutModel>().ReverseMap();
 
-            CreateMap<Book, BookModel>().ReverseMap();
-            CreateMap<Book, BookModelShort>().ReverseMap();
+            CreateMap<Book, BookModelRequest>().ReverseMap();
+            CreateMap<Book, BookModelResponse>().ReverseMap();
             CreateMap<Book, BookPostModel>().ReverseMap();
             CreateMap<Book, BookPutModel>().ReverseMap();
 
@@ -32,12 +32,12 @@ namespace BookLibraryApi.Profiles
             CreateMap<BookRental, BookRentalModelShort>().ReverseMap();
 
             CreateMap<Country, CountryModel>().ReverseMap();
-            CreateMap<Country, CountryModelShort>().ReverseMap();
+            CreateMap<Country, CountryModel>().ReverseMap();
             CreateMap<Country, CountryPostModel>().ReverseMap();
             CreateMap<Country, CountryPutModel>().ReverseMap();
 
-            CreateMap<Genre, GenreModel>().ReverseMap();
-            CreateMap<Genre, GenreModelShort>().ReverseMap();
+            CreateMap<Genre, GenreModelRequest>().ReverseMap();
+            CreateMap<Genre, GenreModelResponse>().ReverseMap();
             CreateMap<Genre, GenrePostModel>().ReverseMap();
             CreateMap<Genre, GenrePutModel>().ReverseMap();
 
@@ -47,8 +47,8 @@ namespace BookLibraryApi.Profiles
             CreateMap<Language, LanguagePutModel>().ReverseMap();
 
 
-            CreateMap<Order, OrderModel>().ReverseMap();
-            CreateMap<Order, OrderModelShort>().ReverseMap();
+            CreateMap<Order, OrderModelRequest>().ReverseMap();
+            CreateMap<Order, OrderModelResponse>().ReverseMap();
             CreateMap<Order, OrderPostModel>().ReverseMap();
             CreateMap<Order, OrderPutModel>().ReverseMap();
 
@@ -57,12 +57,12 @@ namespace BookLibraryApi.Profiles
             CreateMap<Publisher, PublisherPostModel>().ReverseMap();
             CreateMap<Publisher, PublisherPutModel>().ReverseMap();
 
-            CreateMap<User, UserModel>().ReverseMap();
-            CreateMap<User, UserModelShort>().ReverseMap();
+            CreateMap<User, UserModelRequest>().ReverseMap();
+            CreateMap<User, UserModelResponse>().ReverseMap();
             CreateMap<User, UserPostModel>().ReverseMap();
             CreateMap<User, UserPutModel>().ReverseMap();
 
-            CreateMap<UserBasket, UserBasketModel>().ReverseMap();
+            CreateMap<UserBasket, UserBasketModelRequest>().ReverseMap();
             CreateMap<UserBasket, UserBasketPostModel>().ReverseMap();
             CreateMap<UserBasket, UserBasketPutModel>().ReverseMap();
         }

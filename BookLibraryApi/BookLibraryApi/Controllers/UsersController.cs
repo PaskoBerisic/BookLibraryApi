@@ -1,8 +1,11 @@
 ﻿using ApplicationCore.Authentication;
+using ApplicationCore.Entities;
 using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Auth;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.User;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -101,7 +104,7 @@ namespace BookLibraryApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("Authenticate")]
-        public async Task<ActionResult<AuthenticateRequestJWT>> Authenticate([FromBody] AuthenticateRequestJwt authenticateRequest)
+        public async Task<ActionResult<AuthenticateRequestJWT>> Authenticate([FromBody] AuthenticateRequestJWT authenticateRequest)
         {
             var response = await userServiceJwt.Authenticate(authenticateRequest);
 

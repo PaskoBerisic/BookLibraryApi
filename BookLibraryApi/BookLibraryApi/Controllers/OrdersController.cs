@@ -2,6 +2,8 @@
 using ApplicationCore.Enums;
 using ApplicationCore.Interfaces.Entity;
 using AutoMapper;
+using BookLibraryApi.Models;
+using BookLibraryApi.Models.Order;
 using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -14,10 +16,12 @@ namespace BookLibraryApi.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrderService orderService;
+        private readonly IUserBasketService userBasketService;
         private readonly IMapper mapper;
-        public OrdersController(IOrderService orderService, IMapper mapper)
+        public OrdersController(IOrderService orderService,IUserBasketService userBasketService,IMapper mapper)
         {
             this.orderService = orderService;
+            this.userBasketService = userBasketService;
             this.mapper = mapper;
         }
 

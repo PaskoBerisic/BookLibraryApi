@@ -1,4 +1,4 @@
-﻿namespace BookLibraryApi.Models
+﻿namespace BookLibraryApi.Models.Country
 {
     public class CountryModel
     {
