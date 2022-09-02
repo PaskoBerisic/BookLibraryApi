@@ -324,9 +324,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Name", "ShortName", "Updated", "UpdatedBy", "VAT" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1887), 1, "England", "ENG", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1887), 1, 25 },
-                    { 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1889), 1, "France", "FRA", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1889), 1, 20 },
-                    { 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1899), 1, "Germany", "GER", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1899), 1, 10 }
+                    { 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4381), 1, "England", "ENG", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4381), 1, 25 },
+                    { 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4382), 1, "France", "FRA", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4383), 1, 20 },
+                    { 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4384), 1, "Germany", "GER", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4384), 1, 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -334,10 +334,10 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Description", "Name", "Updated", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1922), 1, "Description about the genre 1 ", "Genre 1", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1923), 1 },
-                    { 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1924), 1, "Description about the genre 2", "Genre 2", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1924), 1 },
-                    { 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1925), 1, "Description about the genre 3", "Genre 3", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1925), 1 },
-                    { 4, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1926), 1, "Description about the genre 4", "Genre 4", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1926), 1 }
+                    { 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4404), 1, "Description about the genre 1 ", "Genre 1", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4405), 1 },
+                    { 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4406), 1, "Description about the genre 2", "Genre 2", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4406), 1 },
+                    { 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4407), 1, "Description about the genre 3", "Genre 3", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4407), 1 },
+                    { 4, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4408), 1, "Description about the genre 4", "Genre 4", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4408), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -345,9 +345,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Name", "ShortName", "Updated", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1951), 1, "English", "Eng", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1952), 1 },
-                    { 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1961), 1, "France", "Fra", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1961), 1 },
-                    { 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1966), 1, "Italian", "Ita", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1967), 1 }
+                    { 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4426), 1, "English", "Eng", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4427), 1 },
+                    { 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4428), 1, "France", "Fra", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4428), 1 },
+                    { 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4429), 1, "Italian", "Ita", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4429), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -355,9 +355,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Name", "Updated", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2111), 1, "Publisher 1", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2112), 1 },
-                    { 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2114), 1, "Publisher 2", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2114), 1 },
-                    { 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2115), 1, "Publisher 3", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(2115), 1 }
+                    { 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4519), 1, "Publisher 1", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4520), 1 },
+                    { 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4521), 1, "Publisher 2", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4521), 1 },
+                    { 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4522), 1, "Publisher 3", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4522), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -375,10 +375,10 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Bibliography", "CountryId", "Created", "CreatedBy", "DateOfBirth", "FirstName", "LastName", "Updated", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "Bibliography 1", 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1694), 1, new DateTime(1950, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name", "Surname", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1696), 1 },
-                    { 2, "Bibliography 2", 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1698), 1, new DateTime(1800, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 2", "Surname 2", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1698), 1 },
-                    { 3, "Bibliography 3", 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1707), 1, new DateTime(2000, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 3", "Surname 3", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1707), 1 },
-                    { 4, "Bibliography 4", 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1709), 1, new DateTime(1975, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 4", "Surname 4", new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1709), 1 }
+                    { 1, "Bibliography 1", 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4202), 1, new DateTime(1950, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name", "Surname", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4205), 1 },
+                    { 2, "Bibliography 2", 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4207), 1, new DateTime(1800, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 2", "Surname 2", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4207), 1 },
+                    { 3, "Bibliography 3", 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4208), 1, new DateTime(2000, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 3", "Surname 3", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4209), 1 },
+                    { 4, "Bibliography 4", 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4210), 1, new DateTime(1975, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Name 4", "Surname 4", new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4210), 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -386,10 +386,10 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "Description", "LanguageId", "ListPrice", "PublisherId", "RentalPrice", "Title", "UnitNumber", "UnitsRented", "Updated", "UpdatedBy", "YearOfPublish" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1855), 1, "Description about the book 1", 3, 0.70m, 1, 1.20m, "Book 1", 3, 10, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1855), 1, 1999 },
-                    { 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1857), 1, "Description about the book 2", 2, 0.90m, 1, 1.50m, "Book 2", 3, 15, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1858), 1, 1899 },
-                    { 3, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1859), 1, "Description about the book 3", 1, 1.70m, 2, 2.20m, "Book 3", 3, 2, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1859), 1, 2005 },
-                    { 4, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1861), 1, "Description about the book 4", 2, 1.30m, 3, 1.90m, "Book 4", 5, 0, new DateTime(2022, 9, 2, 6, 46, 9, 474, DateTimeKind.Utc).AddTicks(1861), 1, 1500 }
+                    { 1, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4354), 1, "Description about the book 1", 3, 0.70m, 1, 1.20m, "Book 1", 3, 10, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4355), 1, 1999 },
+                    { 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4357), 1, "Description about the book 2", 2, 0.90m, 1, 1.50m, "Book 2", 3, 15, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4357), 1, 1899 },
+                    { 3, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4358), 1, "Description about the book 3", 1, 1.70m, 2, 2.20m, "Book 3", 3, 2, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4358), 1, 2005 },
+                    { 4, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4360), 1, "Description about the book 4", 2, 1.30m, 3, 1.90m, "Book 4", 5, 0, new DateTime(2022, 9, 2, 9, 42, 14, 25, DateTimeKind.Utc).AddTicks(4360), 1, 1500 }
                 });
 
             migrationBuilder.InsertData(
@@ -397,9 +397,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "Created", "CreatedBy", "DateOfBirth", "Email", "FirstName", "IsActive", "LastName", "Password", "PasswordCrypted", "Role", "Updated", "UpdatedBy", "UserBasketId", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Address 1", new DateTime(2022, 9, 2, 6, 46, 9, 869, DateTimeKind.Utc).AddTicks(5322), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@booklibrary.com", "Name 1", true, "Surname 1", null, "$2a$11$WliGiDvcoC7FE8AhnTYVVuRSkVv6hzd8qmIM6GS3zEktb5R54l4Va", 0, new DateTime(2022, 9, 2, 6, 46, 9, 869, DateTimeKind.Utc).AddTicks(5323), 1, 1, "Admin" },
-                    { 2, "Address 2", new DateTime(2022, 9, 2, 6, 46, 10, 183, DateTimeKind.Utc).AddTicks(1342), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user1@booklibrary.com", "Name 2", true, "Surname 2", null, "$2a$11$Zt1m7yb/XYZHCv9ROD7trusHLz2Y63H4HQqOwH.9FTr5JsIdC9j1u", 2, new DateTime(2022, 9, 2, 6, 46, 10, 183, DateTimeKind.Utc).AddTicks(1344), 1, 2, "User2" },
-                    { 3, "Address 3", new DateTime(2022, 9, 2, 6, 46, 10, 462, DateTimeKind.Utc).AddTicks(3244), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user3@booklibrary.com", "Name 3", true, "Surname 3", null, "$2a$11$Uu2hVbHreGKMrm5qENWrMeuDX1IjyuGDR46R9T9RV99CM2zfBsJ4G", 2, new DateTime(2022, 9, 2, 6, 46, 10, 462, DateTimeKind.Utc).AddTicks(3245), 1, 3, "User3" }
+                    { 1, "Address 1", new DateTime(2022, 9, 2, 9, 42, 14, 194, DateTimeKind.Utc).AddTicks(5834), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@booklibrary.com", "Name 1", true, "Surname 1", null, "$2a$11$0aUnTe3ZpwlzuqWNcHkHZOcW./kaFGJMqisgZnGN6eDlsUZx1iSHK", 0, new DateTime(2022, 9, 2, 9, 42, 14, 194, DateTimeKind.Utc).AddTicks(5835), 1, 1, "Admin" },
+                    { 2, "Address 2", new DateTime(2022, 9, 2, 9, 42, 14, 385, DateTimeKind.Utc).AddTicks(8869), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user1@booklibrary.com", "Name 2", true, "Surname 2", null, "$2a$11$yg2DeEAU1xWQETs80R0nQ.6pbx7Z9rvYtoxQeZaEQPSMK9maKMQKC", 2, new DateTime(2022, 9, 2, 9, 42, 14, 385, DateTimeKind.Utc).AddTicks(8871), 1, 2, "User2" },
+                    { 3, "Address 3", new DateTime(2022, 9, 2, 9, 42, 14, 554, DateTimeKind.Utc).AddTicks(7892), 1, new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user3@booklibrary.com", "Name 3", true, "Surname 3", null, "$2a$11$Ng6C/aRYJAk/dSChDHYKo.6siIX9kEjbaPHdRZWZmcx7o0QQ0N.qK", 2, new DateTime(2022, 9, 2, 9, 42, 14, 554, DateTimeKind.Utc).AddTicks(7893), 1, 3, "User3" }
                 });
 
             migrationBuilder.InsertData(
@@ -412,7 +412,9 @@ namespace Infrastructure.Migrations
                     { 3, 2, 1 },
                     { 4, 2, 2 },
                     { 5, 2, 3 },
-                    { 6, 3, 1 }
+                    { 6, 3, 1 },
+                    { 7, 1, 4 },
+                    { 8, 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -425,7 +427,9 @@ namespace Infrastructure.Migrations
                     { 4, 2, 2 },
                     { 5, 1, 3 },
                     { 6, 2, 3 },
-                    { 7, 3, 3 }
+                    { 7, 3, 3 },
+                    { 8, 2, 4 },
+                    { 9, 4, 4 }
                 });
 
             migrationBuilder.InsertData(

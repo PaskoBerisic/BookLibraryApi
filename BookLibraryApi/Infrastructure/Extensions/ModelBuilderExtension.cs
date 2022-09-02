@@ -432,7 +432,10 @@ namespace Infrastructure.Extensions
                  new BookAuthor() { Id = 4, BookId = 2, AuthorId = 2 },
                  new BookAuthor() { Id = 5, BookId = 3, AuthorId = 2 },
 
-                 new BookAuthor() { Id = 6, BookId = 1, AuthorId = 3 }
+                 new BookAuthor() { Id = 6, BookId = 1, AuthorId = 3 },
+
+                 new BookAuthor() { Id = 7, BookId = 4, AuthorId = 1 },
+                 new BookAuthor() { Id = 8, BookId = 4, AuthorId = 4 }
              );
             //BookAuthor
 
@@ -458,7 +461,10 @@ namespace Infrastructure.Extensions
 
                  new BookGenre() { Id = 5, BookId = 1, GenreId = 3 },
                  new BookGenre() { Id = 6, BookId = 2, GenreId = 3 },
-                 new BookGenre() { Id = 7, BookId = 3, GenreId = 3 }
+                 new BookGenre() { Id = 7, BookId = 3, GenreId = 3 },
+
+                 new BookGenre() { Id = 8, BookId = 2, GenreId = 4 },
+                 new BookGenre() { Id = 9, BookId = 4, GenreId = 4 }
              );
 
             //BookUserBasket
