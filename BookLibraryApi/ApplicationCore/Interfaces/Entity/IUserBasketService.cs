@@ -17,6 +17,7 @@ namespace ApplicationCore.Interfaces.Entity
         Task Update(UserBasket userBasket, ICollection<int> id);
         Task Delete(UserBasket userBasket);
         Task DeleteById(int id);
+        Task ClearBasket(int id);
         Task<IEnumerable<UserBasket>> FindWithSpecification(ISpecification<UserBasket> specification = null);
         Task AddBookToUserBasket(int bookId, int userBasketId);
         Task DeleteBookFromUserBasket(int bookId, int userBasketId);

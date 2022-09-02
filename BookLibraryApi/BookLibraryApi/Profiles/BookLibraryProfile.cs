@@ -1,14 +1,10 @@
 ﻿using ApplicationCore.Entities;
 using AutoMapper;
 using BookLibraryApi.Models;
-using BookLibraryApi.Models.Author;
 using BookLibraryApi.Models.Book;
-using BookLibraryApi.Models.BookRental;
 using BookLibraryApi.Models.Country;
 using BookLibraryApi.Models.Genre;
-using BookLibraryApi.Models.Language;
 using BookLibraryApi.Models.Order;
-using BookLibraryApi.Models.Publisher;
 using BookLibraryApi.Models.User;
 using BookLibraryApi.Models.UserBasket;
 
@@ -18,53 +14,31 @@ namespace BookLibraryApi.Profiles
     {
         public BookLibraryProfile()
         {
-            CreateMap<Author, AuthorModel>().ReverseMap();
-            CreateMap<Author, AuthorModelShort>().ReverseMap();
-            CreateMap<Author, AuthorPostModel>().ReverseMap();
-            CreateMap<Author, AuthorPutModel>().ReverseMap();
+            CreateMap<Author, AuthorModelRequest>().ReverseMap();
+            CreateMap<Author, AuthorModelResponse>().ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookAuthors.Select(x => x.Book))).ReverseMap();
 
-            CreateMap<Book, BookModel>().ReverseMap();
-            CreateMap<Book, BookModelShort>().ReverseMap();
-            CreateMap<Book, BookPostModel>().ReverseMap();
-            CreateMap<Book, BookPutModel>().ReverseMap();
-
-            CreateMap<BookRental, BookRentalModel>().ReverseMap();
-            CreateMap<BookRental, BookRentalModelShort>().ReverseMap();
+            CreateMap<Book, BookModelRequest>().ReverseMap();
+            CreateMap<Book, BookModelResponse>().ForMember(dest => dest.Authors, opt => opt.MapFrom(src => src.BookAuthors.Select(x => x.Author)))
+                                                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.BookGenres.Select(x => x.Genre)))
+                                                .ForMember(dest => dest.UserBaskets, opt => opt.MapFrom(src => src.BookUserBaskets.Select(x => x.UserBasket))).ReverseMap();
 
             CreateMap<Country, CountryModel>().ReverseMap();
-            CreateMap<Country, CountryModelShort>().ReverseMap();
-            CreateMap<Country, CountryPostModel>().ReverseMap();
-            CreateMap<Country, CountryPutModel>().ReverseMap();
-
-            CreateMap<Genre, GenreModel>().ReverseMap();
-            CreateMap<Genre, GenreModelShort>().ReverseMap();
-            CreateMap<Genre, GenrePostModel>().ReverseMap();
-            CreateMap<Genre, GenrePutModel>().ReverseMap();
+            
+            CreateMap<Genre, GenreModelRequest>().ReverseMap();
+            CreateMap<Genre, GenreModelResponse>().ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookGenres.Select(x => x.Book))).ReverseMap();
 
             CreateMap<Language, LanguageModel>().ReverseMap();
-            CreateMap<Language, LanguageModelShort>().ReverseMap();
-            CreateMap<Language, LanguagePostModel>().ReverseMap();
-            CreateMap<Language, LanguagePutModel>().ReverseMap();
 
-
-            CreateMap<Order, OrderModel>().ReverseMap();
-            CreateMap<Order, OrderModelShort>().ReverseMap();
-            CreateMap<Order, OrderPostModel>().ReverseMap();
-            CreateMap<Order, OrderPutModel>().ReverseMap();
+            CreateMap<Order, OrderModelRequest>().ReverseMap();
+            CreateMap<Order, OrderModelResponse>().ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookOrders.Select(x => x.Book))).ReverseMap();
 
             CreateMap<Publisher, PublisherModel>().ReverseMap();
-            CreateMap<Publisher, PublisherPostModel>().ReverseMap();
-            CreateMap<Publisher, PublisherPostModel>().ReverseMap();
-            CreateMap<Publisher, PublisherPutModel>().ReverseMap();
 
-            CreateMap<User, UserModel>().ReverseMap();
-            CreateMap<User, UserModelShort>().ReverseMap();
-            CreateMap<User, UserPostModel>().ReverseMap();
-            CreateMap<User, UserPutModel>().ReverseMap();
+            CreateMap<User, UserModelResponse>().ReverseMap();
+            CreateMap<User, UserModelRequest>().ReverseMap();
 
-            CreateMap<UserBasket, UserBasketModel>().ReverseMap();
-            CreateMap<UserBasket, UserBasketPostModel>().ReverseMap();
-            CreateMap<UserBasket, UserBasketPutModel>().ReverseMap();
+            CreateMap<UserBasket, UserBasketModelRequest>().ReverseMap();
+            CreateMap<UserBasket, UserBasketModelResponse>().ForMember(dest => dest.Books, opt => opt.MapFrom(src => src.BookUserBaskets.Select(x => x.Book))).ReverseMap();
         }
     }
 }

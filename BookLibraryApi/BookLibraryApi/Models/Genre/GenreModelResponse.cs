@@ -2,13 +2,12 @@
 
 namespace BookLibraryApi.Models.Genre
 {
-    public class GenrePutModel
+    public class GenreModelResponse
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public bool IsActive { get; set; }
         public string? Description { get; set; }
-        // Many to Many
-        public ICollection<BookModelShort>? Books { get; set; }
+
+        public ICollection<BookModelResponse>? Books { get; set; }
     }
 }
