@@ -1,4 +1,4 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Interfaces.Auth;
 
 namespace BookLibraryApi.TokenCheckMiddleware
 {

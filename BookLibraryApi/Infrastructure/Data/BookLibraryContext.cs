@@ -17,15 +17,13 @@ namespace Infrastructure.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<BookRental> BookRentals { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Language> Languages { get; set; }  
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserBasket> UserBaskets { get; set; }
-        public DbSet<SystemSettings> SystemSettings { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -36,15 +34,7 @@ namespace Infrastructure.Data
         {
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("BookLibraryApi"));
             optionsBuilder.EnableSensitiveDataLogging();
-            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            
+            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);           
         }
     }
 }
-
-
-//    (options =>
-//{
-//    options.UseSqlServer("BookLibraryApi");
-//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-//}); ;
