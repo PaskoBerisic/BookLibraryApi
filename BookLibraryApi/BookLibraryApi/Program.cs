@@ -1,12 +1,11 @@
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Auth;
 using ApplicationCore.Interfaces.Entity;
 using ApplicationCore.Services;
 using BookLibraryApi.TokenCheckMiddleware;
 using Infrastructure.Data;
 using Infrastructure.Options;
 using Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

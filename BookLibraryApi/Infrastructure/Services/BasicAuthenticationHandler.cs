@@ -1,5 +1,5 @@
 ﻿using ApplicationCore.Entities;
-using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
