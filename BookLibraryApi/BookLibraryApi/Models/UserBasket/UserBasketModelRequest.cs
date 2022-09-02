@@ -1,7 +1,4 @@
-﻿using ApplicationCore.Entities;
-using BookLibraryApi.Models.Book;
-
-namespace BookLibraryApi.Models
+﻿namespace BookLibraryApi.Models.UserBasket
 {
     public class UserBasketModelRequest
     {
