@@ -45,8 +45,8 @@ namespace BookLibraryApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("ByUnitlNumber")]
-        public async Task<ActionResult<IEnumerable<BookModelResponse>>> GetBooksByUnitNumber()
+        [HttpGet("ByRentalNumber")]
+        public async Task<ActionResult<IEnumerable<BookModelResponse>>> GetBooksByRentalNumber()
         {
             var specification = new BooksByRentalNumberSpecification();
             var books = await bookService.FindWithSpecification(specification);
